@@ -33,7 +33,25 @@ HelperToolのインストールに失敗した，というメッセージが表�
 
 ## 【参考】コンポーネントの管理
 
-<img width="708" alt="components" src="https://user-images.githubusercontent.com/1725068/187552850-eef85f20-abc4-43b6-8f72-2d0d4860c809.png">
+コンポーネントは，プロジェクトフォルダーの`Components`フォルダーにインストールします。下記いずれかのファイル形式がサポートされています。
+
+1. .4DB
+2. .4DC
+3. .4DZ
+4. .4dbase
+5. プロジェクトフォルダー
+
+.4DZは`Project`フォルダーをzip圧縮したファイル形式です。コンパイルされているとは限りません。
+
+`Resources`などの関連フォルダーを含めるのであれば，.4dbaseまたはプロジェクトフォルダーをインストールする必要があります。
+
+通常，コンポーネントには複数のプロジェクトに共通の汎用的なモジュールとして開発します。それぞれのプロジェクトのコンポーネントのソースコードをインストールするのでは管理が大変です。それで`Components`フォルダーにエイリアスをインストールすることが推奨されています。下記のように整理できるかもしれません。
+
+* Components: エイリアス
+* Components - Releases: コンパイル版のコンポーネント
+* Components - Sources: コンポーネントのソースコード
+
+<img width="778" alt="components" src="https://user-images.githubusercontent.com/1725068/187552949-2f206567-38bb-48f0-8014-cbaa2b394b42.png">
 
 ## 資料/文献
 
