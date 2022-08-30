@@ -65,6 +65,17 @@ cs.Startup.new().linkComponents().restartIfNecessary()
 BuildApp.buildComponent()
 ```
 
+## サンプルアプリケーション
+
+ダイアログに現在時刻を表示するだけの簡単なプログラムです。
+
+<img width="470" alt="dialog" src="https://user-images.githubusercontent.com/1725068/187561994-1b0650ee-b0e6-4f05-93a1-29956b5de9ca.png">
+
+フォームはアプリケーションプロセスで表示し，バックグラウンド処理はプリエンプティブモードのワーカーで実行しています。*On Timer*は使用していません。
+
+<img width="852" alt="runtime" src="https://user-images.githubusercontent.com/1725068/187562171-dc37a323-01f5-4d33-91a3-9fcf58a04f1d.png">
+
+[`55f2066`](https://github.com/miyako/4d-tutorial-deployment/commit/55f20667ded832cf4f358f49bec22ef5f392dd78)
 
 ## 資料/文献
 
