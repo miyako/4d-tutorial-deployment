@@ -2,11 +2,11 @@ Class constructor
 	
 	This:C1470.shouldRestart:=False:C215
 	
-	This:C1470.components:=New collection:C1472("builder"; "execute")
+	This:C1470.components:=New collection:C1472("builder")
 	
 	This:C1470.projectFolder:=Folder:C1567(Get 4D folder:C485(Database folder:K5:14); fk platform path:K87:2)
 	This:C1470.componentsFolder:=This:C1470.projectFolder.folder("Components")
-	This:C1470.builtComponentsFolder:=This:C1470.projectFolder.folder("Components - Releases").folder("Components")
+	This:C1470.builtComponentsFolder:=This:C1470.projectFolder.parent.parent.folder("Components - Releases").folder("Components")
 	
 Function linkComponents()->$this : cs:C1710.Startup
 	

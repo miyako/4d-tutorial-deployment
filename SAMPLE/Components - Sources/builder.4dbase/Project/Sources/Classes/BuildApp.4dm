@@ -1,13 +1,16 @@
 Class constructor($settingsFile : Object)
 	
+	This:C1470.settingsFile:=Null:C1517
+	
 	Case of 
+		: (Count parameters:C259=0)
 		: (OB Instance of:C1731($settingsFile; 4D:C1709.File))  //use this 4DSettings file
 			This:C1470.settingsFile:=$settingsFile
-		: (OB Instance of:C1731($settingsFile; 4D:C1709.Object))  //force blank 4DSettings
-			This:C1470.settingsFile:=Null:C1517
-		Else   //use default 4DSettings file
-			This:C1470.settingsFile:=This:C1470.getDefaultSettingsFile()
 	End case 
+	
+	If (This:C1470.settingsFile=Null:C1517)
+		This:C1470.settingsFile:=This:C1470.getDefaultSettingsFile()  //use default 4DSettings file
+	End if 
 	
 	This:C1470.settings:=This:C1470._getSettings(This:C1470.settingsFile)
 	
@@ -810,7 +813,9 @@ Function buildComponent($name : Text)->$that : cs:C1710._Build
 	$databaseFolder:=Folder:C1567(Get 4D folder:C485(Database folder:K5:14; *); fk platform path:K87:2)
 	
 	If (Count parameters:C259=0)
-		$name:=$databaseFolder.name
+		$BuildApplicationName:=$databaseFolder.name
+	Else 
+		$BuildApplicationName:=$name
 	End if 
 	
 	$settings:=This:C1470.settings
@@ -835,7 +840,7 @@ Function buildComponent($name : Text)->$that : cs:C1710._Build
 	$settings.BuildCompiled:=False:C215
 	$settings.BuildApplicationSerialized:=False:C215
 	$settings.BuildApplicationLight:=False:C215
-	$settings.BuildApplicationName:=$name
+	$settings.BuildApplicationName:=$BuildApplicationName
 	$settings.BuildMacDestFolder:=$databaseFolder.parent.parent.folder("Components - Releases").platformPath
 	
 	$settings.SignApplication.MacSignature:=False:C215
