@@ -32,10 +32,38 @@
 					"width": 400,
 					"height": 16,
 					"fontWeight": "bold"
+				},
+				"閉じる": {
+					"type": "button",
+					"text": "閉じる",
+					"top": 190,
+					"left": 350,
+					"width": 100,
+					"height": 22,
+					"events": [
+						"onClick"
+					],
+					"focusable": false,
+					"defaultButton": true,
+					"action": "accept"
+				},
+				"Input": {
+					"type": "input",
+					"left": 20,
+					"top": 56,
+					"width": 430,
+					"height": 113,
+					"dataSource": "Form:C1466.timestamp",
+					"enterable": false,
+					"focusable": false,
+					"dataSourceTypeHint": "text",
+					"fill": "transparent"
 				}
 			}
 		}
 	],
 	"menuBar": "Barre #1",
-	"geometryStamp": 5
+	"geometryStamp": 25,
+	"formSizeAnchor": "閉じる",
+	"method": "method.4dm"
 }
