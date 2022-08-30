@@ -35,6 +35,7 @@ HelperToolのインストールに失敗した，というメッセージが表�
 
 <img width="708" alt="error" src="https://user-images.githubusercontent.com/1725068/187550774-217ed7e4-7db4-4e4e-880b-9d95475fafa1.png">
 
+**コンパイルコードを削除**して再コンパイルすれば成功するはずです。
 
 ## 資料/文献
 
