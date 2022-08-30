@@ -1,6 +1,12 @@
 # 4d-tutorial-deployment
 アプリケーションビルド（Mac編）
 
+## 準備
+
+プロジェクトを作成します。
+
+<img width="778" alt="project" src="https://user-images.githubusercontent.com/1725068/187541919-85b2a1f7-b171-4966-a125-3dd609867563.png">
+
 ## 資料/文献
 
 * [v17とv18の4Dアプリケーションのビルドを公証する](https://4d-jp.github.io/tech_notes/20-02-25-notarization/) 
