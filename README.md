@@ -19,6 +19,22 @@
 
 ## Xcodeのインストールとアップデート
 
+ARM (Apple Silicon) ターゲットのコンパイルをするためには，[Xcode](https://apps.apple.com/us/app/xcode/id497799835)がインストールされていなければなりません。
+
+<img width="530" alt="xcode" src="https://user-images.githubusercontent.com/1725068/187549852-104612a0-fb07-4035-bd73-6e970795aa46.png">
+
+Xcodeのアップデートが必要な場合，下記のメッセージが表示されます。
+
+<img width="708" alt="update" src="https://user-images.githubusercontent.com/1725068/187550580-9900eeb6-ff7f-4236-ac51-977e63ca073c.png">
+
+HelperToolのインストールに失敗した，というメッセージが表示されることがあります。
+
+<img width="480" alt="fail" src="https://user-images.githubusercontent.com/1725068/187550631-77d592b3-e03a-44c0-b6e9-d8051d340fa3.png">
+
+コンパイルが途中まで進んでいた場合，その回は失敗に終わるかもしれません。
+
+<img width="708" alt="error" src="https://user-images.githubusercontent.com/1725068/187550774-217ed7e4-7db4-4e4e-880b-9d95475fafa1.png">
+
 
 ## 資料/文献
 
