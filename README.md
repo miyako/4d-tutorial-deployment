@@ -31,6 +31,10 @@ HelperToolのインストールに失敗した，というメッセージが表�
 
 **コンパイルコードを削除**して再コンパイルすれば成功するはずです。
 
+## 【参考】コンポーネントの管理
+
+<img width="708" alt="components" src="https://user-images.githubusercontent.com/1725068/187552850-eef85f20-abc4-43b6-8f72-2d0d4860c809.png">
+
 ## 資料/文献
 
 * [v17とv18の4Dアプリケーションのビルドを公証する](https://4d-jp.github.io/tech_notes/20-02-25-notarization/)
