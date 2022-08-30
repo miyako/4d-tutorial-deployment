@@ -59,10 +59,10 @@ HelperToolのインストールに失敗した，というメッセージが表�
 cs.Startup.new().linkComponents().restartIfNecessary()
 ```
 
-サンプルプロジェクトのコンポーネントは，下記のコードコンパイル→ビルド→インストールできるようになっています。
+サンプルプロジェクトのコンポーネントは，下記の要領でコンパイル→ビルド→インストールができるようになっています。
 
 ```4d
-BuildApp.new().buildComponent()
+BuildApp.buildComponent()
 ```
 
 
