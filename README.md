@@ -53,6 +53,19 @@ HelperToolのインストールに失敗した，というメッセージが表�
 
 <img width="778" alt="components" src="https://user-images.githubusercontent.com/1725068/187552949-2f206567-38bb-48f0-8014-cbaa2b394b42.png">
 
+サンプルプロジェクトの*On Startup*には，依存コンポーネントのエイリアスを作成するコードが記述されています。
+
+```4d
+cs.Startup.new().linkComponents().restartIfNecessary()
+```
+
+サンプルプロジェクトのコンポーネントは，下記のコードコンパイル→ビルド→インストールできるようになっています。
+
+```4d
+BuildApp.new().buildComponent()
+```
+
+
 ## 資料/文献
 
 * [v17とv18の4Dアプリケーションのビルドを公証する](https://4d-jp.github.io/tech_notes/20-02-25-notarization/)
