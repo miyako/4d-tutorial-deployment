@@ -62,7 +62,7 @@ cs.Startup.new().linkComponents().restartIfNecessary()
 サンプルプロジェクトのコンポーネントは，下記の要領でコンパイル→ビルド→インストールができるようになっています。
 
 ```4d
-BuildApp.new().buildComponent()
+BuildApp.buildComponent()
 ```
 
 
