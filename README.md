@@ -7,7 +7,7 @@
 
 <img width="778" alt="project" src="https://user-images.githubusercontent.com/1725068/187541919-85b2a1f7-b171-4966-a125-3dd609867563.png">
 
-[`bbfdeac`](https://github.com/miyako/4d-tutorial-deployment/commit/bbfdeac919b61c13e8068a6c1c163b5bbb2bb7fa)
+[`c7dbedd`](https://github.com/miyako/4d-tutorial-deployment/commit/c7dbeddb01c7ef2ee433eacd82951452b9dc4bba)
 
 **ポイント**: ARM (Apple Silicon) ターゲットのコンパイルをするためには，プロジェクトモードでアプリケーションを開発する必要があります。バイナリモード（いわゆるストラクチャファイル）はインタープリターモード専用なので，ビルドすることができません。
 
