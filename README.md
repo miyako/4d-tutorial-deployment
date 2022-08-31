@@ -65,6 +65,49 @@ cs.Startup.new().linkComponents().restartIfNecessary()
 BuildApp.buildComponent()
 ```
 
+## サンプルアプリケーション
+
+ダイアログに現在時刻を表示するだけの簡単なプログラムです。
+
+<img width="470" alt="dialog" src="https://user-images.githubusercontent.com/1725068/187561994-1b0650ee-b0e6-4f05-93a1-29956b5de9ca.png">
+
+ちなみにフォームはアプリケーションプロセスで表示し，バックグラウンド処理はプリエンプティブモードのワーカーで実行しています。*On Timer*は使用していません。
+
+<img width="852" alt="runtime" src="https://user-images.githubusercontent.com/1725068/187562171-dc37a323-01f5-4d33-91a3-9fcf58a04f1d.png">
+
+[`55f2066`](https://github.com/miyako/4d-tutorial-deployment/commit/55f20667ded832cf4f358f49bec22ef5f392dd78)
+
+## ユーザー設定
+
+アプリケーションをビルドすると，データベースフォルダーの`Settings`フォルダーは読み書きができなくなります。設定ファイルを外部ファイルで管理するため，[ユーザー設定](http://developer.4d.com/docs/ja/Desktop/user-settings.html#ユーザー設定の有効化)を有効にする必要があります。
+
+* データベース設定＞セキュリティ＞外部ファイルのユーザー設定を有効にする
+
+<img width="860" alt="user settings" src="https://user-images.githubusercontent.com/1725068/187574543-112363ae-4b39-4cc7-a492-50208a2713bc.png">
+
+* デザイン＞設定＞ユーザー設定
+
+が管理できるようになります。
+
+データファイルがストラクチャファイルとは別の場所にあれば，
+
+* デザイン＞設定＞データファイル用のユーザー設定
+
+も管理できるようになります。
+
+* 設定＞ストラクチャ設定
+
+**一般**ページを開き，**起動時モード**を**アプリケーション**に設定します。この項目はストラクチャレベルで設定する必要があります。
+
+<img width="860" alt="スクリーンショット 2022-08-31 10 53 17" src="https://user-images.githubusercontent.com/1725068/187575383-b525e813-87de-4bfa-ab17-9ca1e8828968.png">
+
+* デザイン＞設定＞データファイル用のユーザー設定
+
+アプリケーションモードのスプラッシュ画面が不要であれば，**インタフェース**ページを開き，**ウィンドウの表示**の**スプラッシュスクリーン**を解除します。
+
+<img width="860" alt="スクリーンショット 2022-08-31 10 54 38" src="https://user-images.githubusercontent.com/1725068/187575688-cb516e06-8e4c-45cb-96d1-5f2a848b3e7b.png">
+
+
 
 ## 資料/文献
 
