@@ -251,7 +251,7 @@ If ($status.sign.success)
 End if 
 ```
 
-
+[`83dd141`](https://github.com/miyako/4d-tutorial-deployment/commit/83dd141666ec11f0c879690720f5705edd955317)
 
 * `updatePatch()`: パッチ番号をインクリメントします。このバージョンコードが`Info.plist`に書き込まれます。
 * `buildDesktop()`: ビルド/署名/アーカイブ/公証まで一連の処理を実行します。
