@@ -23,10 +23,10 @@ Class constructor
 		This:C1470.folderName:="4D v"+Substring:C12(This:C1470.version; 1; 2)+" R"+Substring:C12(This:C1470.version; 3; 1)
 	End if 
 	
-	$releaseFolder:=Folder:C1567(Get 4D folder:C485(Database folder:K5:14); fk platform path:K87:2).parent.folder("Releases")
-	$releaseFolder.create()
+	This:C1470.releaseFolder:=Folder:C1567(Get 4D folder:C485(Database folder:K5:14); fk platform path:K87:2).parent.folder("Releases")
+	This:C1470.releaseFolder.create()
 	
-	This:C1470.releaseFolder:=$releaseFolder
+	This:C1470.format:=".dmg"
 	
 Function _getCredentials()->$credentials : Object
 	
@@ -35,9 +35,20 @@ Function _getCredentials()->$credentials : Object
 	$credentials.password:=This:C1470.password
 	$credentials.keychainProfile:=This:C1470.keychainProfile
 	
-Function buildDesktop()->$that : cs:C1710.Build
+Function buildDesktop($format : Text)->$status : Object
 	
-	$that:=This:C1470
+	If (Count parameters:C259#0)
+		
+		Case of 
+			: ($format=".dmg")
+				This:C1470.format:=$format
+			: ($format=".pkg")
+				This:C1470.format:=$format
+			: ($format=".zip")
+				This:C1470.format:=$format
+		End case 
+		
+	End if 
 	
 	$version:=This:C1470.version
 	This:C1470.folderName:=This:C1470.folderName
@@ -153,21 +164,34 @@ Function _signApp($buildApp : Object; $identifier : Text; $folderName : Text; $a
 	
 	$status.sign:=$signApp.sign($app)
 	
-	$status.archive:=$signApp.archive($app)
+	$status.archive:=$signApp.archive($app; This:C1470.format)
 	
 	If ($status.archive.success)
 		
-		
 		$status.notarize:=$signApp.notarize($status.archive.file; $useOldTool)
+		
 		If ($status.notarize.success)
-			$dmg:=$signApp.destination.folder($signApp.versionID).file($appName+".dmg")
-			$status.dmg:=$dmg
+			
+			$status.app:=$signApp.destination.folder($signApp.versionID).file($appName+This:C1470.format)
+			
 		End if 
+		
 	End if 
 	
-Function buildAutoUpdateClientServer()->$that : cs:C1710.Build
+Function buildAutoUpdateClientServer($format : Text)->$status : Object
 	
-	$that:=This:C1470
+	If (Count parameters:C259#0)
+		
+		Case of 
+			: ($format=".dmg")
+				This:C1470.format:=$format
+			: ($format=".pkg")
+				This:C1470.format:=$format
+			: ($format=".zip")
+				This:C1470.format:=$format
+		End case 
+		
+	End if 
 	
 	This:C1470._prepareClientRuntime()
 	
@@ -222,9 +246,20 @@ Function buildAutoUpdateClientServer()->$that : cs:C1710.Build
 		
 	End if 
 	
-Function buildServer()->$that : cs:C1710.Build
+Function buildServer($format : Text)->$status : Object
 	
-	$that:=This:C1470
+	If (Count parameters:C259#0)
+		
+		Case of 
+			: ($format=".dmg")
+				This:C1470.format:=$format
+			: ($format=".pkg")
+				This:C1470.format:=$format
+			: ($format=".zip")
+				This:C1470.format:=$format
+		End case 
+		
+	End if 
 	
 	$version:=This:C1470.version
 	This:C1470.folderName:=This:C1470.folderName
@@ -274,7 +309,7 @@ Function buildServer()->$that : cs:C1710.Build
 		
 	End if 
 	
-Function _prepareClientRuntime()->$that : cs:C1710.Build
+Function _prepareClientRuntime()->$status : Object
 	
 /*
 	
@@ -282,8 +317,6 @@ Function _prepareClientRuntime()->$that : cs:C1710.Build
 ただし4D Volume Desktopのバージョンは書き換えない
 	
 */
-	
-	$that:=This:C1470
 	
 	$version:=This:C1470.version
 	This:C1470.folderName:=This:C1470.folderName
