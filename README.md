@@ -153,6 +153,17 @@ BuildApp.buildComponent()
 
 上記の条件が満たされたなら，`OPEN DATA FILE`または`CREATE DATA FILE`で運用データファイルを作成または使用します。これらのコマンドはアプリケーション再起動前に実行される最後のコマンドであるべきです。既存のスタートアップコードとは相互に排他的な処理になるようにプログラムする必要があります。
 
+ユーザー設定ファイルもデフォルトデータフォルダーから運用データファイルにコピーします。
+
+デフォルトデータファイルを使用しているこのタイミングでは，データベースが書き込み保護されており，まだログファイルを有効にすることはできません。運用データファイルに切り替わった後にログファイルを使用する条件が満たされているかチェックするコードを実行します。
+
+* `(Version type ?? Merged application)`
+* `(Application type=4D Volume desktop) | (Application type=4D Server)`
+* `(Log file="")`
+* `(Not(Is data file locked)`
+
+`SELECT LOG FILE`でログファイルを作成する場所を決定します。ログファイルは次回のバックアップ完了後から使用されるようになります。
+
 ## アイコンファイル
 
 c.f. [Macアプリの.icnsを作るときのメモ](https://qiita.com/Jacminik/items/a4c8fe20a4cba62f428b)
