@@ -99,16 +99,7 @@ BuildApp.buildComponent()
 
 **一般**ページを開き，**起動時モード**を**アプリケーション**に設定します。この項目はストラクチャレベルで設定する必要があります。
 
-<img width="860" alt="app" src="https://user-images.githubusercontent.com/1725068/187575248-a8d12d3b-988e-4814-8619-935f910d27c1.png">
-
-
-
-
-**データファイル用のユーザー設定**を開きます。
-
-
-
-
+<img width="860" alt="スクリーンショット 2022-08-31 10 53 17" src="https://user-images.githubusercontent.com/1725068/187575383-b525e813-87de-4bfa-ab17-9ca1e8828968.png">
 
 
 ## 資料/文献
