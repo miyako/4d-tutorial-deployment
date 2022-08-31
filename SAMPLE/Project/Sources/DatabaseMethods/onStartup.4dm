@@ -1,5 +1,9 @@
 cs:C1710.Startup.new().linkComponents().restartIfNecessary()
 
-cs:C1710.Startup.new().switchDataIfNecessary()
+If (Not:C34(Process aborted:C672))
+	cs:C1710.Startup.new().switchDataIfNecessary()  //データファイル切り替え
+End if 
 
-cs:C1710.App.new().setAbout().runTestForm()
+If (Not:C34(Process aborted:C672))
+	cs:C1710.App.new().setAbout().runTestForm()  //通常のスタートアップ
+End if 

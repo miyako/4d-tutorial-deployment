@@ -850,3 +850,14 @@ Function buildComponent($name : Text)->$that : cs:C1710._Build
 	$settings.IncludeAssociatedFolders:=True:C214
 	
 	$status:=This:C1470.build()
+	
+Function getAppFolderForVersion()->$folder : 4D:C1709.Folder
+	
+	$version:=Application version:C493($build)
+	If (Substring:C12($version; 3; 1)="0")
+		$folderName:="4D v"+Substring:C12($version; 1; 2)+"."+Substring:C12($version; 4; 1)
+	Else 
+		$folderName:="4D v"+Substring:C12($version; 1; 2)+" R"+Substring:C12($version; 3; 1)
+	End if 
+	
+	$folder:=Folder:C1567(fk applications folder:K87:20).folder($folderName)
