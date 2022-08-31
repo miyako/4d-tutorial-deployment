@@ -241,6 +241,14 @@ $status.notarize:=$signApp.notarize($status.archive.file)
 $build:=cs.Build.new()
 $build.versionString:=cs.Version.new().updatePatch().getString()
 $status:=$build.buildDesktop(".pkg")
+
+If ($status.sign.success)
+	If ($status.archive.success)
+		If ($status.notarize.success)
+			SHOW ON DISK($status.app.platformPath)
+		End if 
+	End if 
+End if 
 ```
 
 [0.0.18](https://github.com/miyako/4d-tutorial-deployment/releases/tag/0.0.18)
