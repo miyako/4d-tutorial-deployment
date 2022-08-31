@@ -242,3 +242,5 @@ $status.notarize:=$signApp.notarize($status.archive.file)
 * [データファイルの管理](https://developer.4d.com/docs/ja/Desktop/building.html#データファイルの管理)
 
 * [macOS Sierraとビルドアプリケーションの配付について](https://4djug.forumjap.com/t65-topic)
+
+* [Mac版アプリケーションの仕上げと配付に関する情報](https://miyako.github.io/2019/10/16/notarization.html)
