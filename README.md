@@ -83,7 +83,7 @@ BuildApp.buildComponent()
 
 * データベース設定＞セキュリティ＞外部ファイルのユーザー設定を有効にする
 
-<img width="860" alt="user settings" src="https://user-images.githubusercontent.com/1725068/187574543-112363ae-4b39-4cc7-a492-50208a2713bc.png">
+<img width="860" alt="スクリーンショット 2022-08-31 13 22 28" src="https://user-images.githubusercontent.com/1725068/187592229-0537c20f-ae08-4e45-8696-f2814669bd8c.png">
 
 * デザイン＞設定＞ユーザー設定
 
