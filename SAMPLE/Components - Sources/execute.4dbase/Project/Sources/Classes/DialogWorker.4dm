@@ -36,11 +36,6 @@ Function startWorker($method : 4D:C1709.Function)
 		$o.executeOnServer:=Bool:C1537(Form:C1466.executeOnServer)
 		$worker:=This:C1470.get_worker_identifier()
 		
-		If (Not:C34($o.executeOnServer))
-			$local_settings:=local_settings
-			$o.name:=$o.name+"@"+$local_settings.Get_flag("CLIENT_ID")
-		End if 
-		
 		This:C1470.name:=$o.name
 		This:C1470.method:=$o.method
 		This:C1470.formula:=$o.formula
