@@ -101,6 +101,13 @@ BuildApp.buildComponent()
 
 <img width="860" alt="スクリーンショット 2022-08-31 10 53 17" src="https://user-images.githubusercontent.com/1725068/187575383-b525e813-87de-4bfa-ab17-9ca1e8828968.png">
 
+* デザイン＞設定＞データファイル用のユーザー設定
+
+アプリケーションモードのスプラッシュ画面が不要であれば，**インタフェース**ページを開き，**ウィンドウの表示**の**スプラッシュスクリーン**を解除します。
+
+<img width="860" alt="スクリーンショット 2022-08-31 10 54 38" src="https://user-images.githubusercontent.com/1725068/187575688-cb516e06-8e4c-45cb-96d1-5f2a848b3e7b.png">
+
+
 
 ## 資料/文献
 
