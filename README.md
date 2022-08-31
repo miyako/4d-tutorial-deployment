@@ -155,7 +155,7 @@ BuildApp.buildComponent()
 
 ## アイコンファイル
 
-c.f. Macアプリの.icnsを作るときのメモ
+c.f. [Macアプリの.icnsを作るときのメモ](https://qiita.com/Jacminik/items/a4c8fe20a4cba62f428b)
 
 ## コンパイル
 
