@@ -184,3 +184,5 @@ T.B.C.
 * [ユーザー設定の有効化](http://developer.4d.com/docs/ja/Desktop/user-settings.html#ユーザー設定の有効化)
 
 * [データファイルの管理](https://developer.4d.com/docs/ja/Desktop/building.html#データファイルの管理)
+
+* [macOS Sierraとビルドアプリケーションの配付について](https://4djug.forumjap.com/t65-topic)
