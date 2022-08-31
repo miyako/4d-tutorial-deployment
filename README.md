@@ -183,10 +183,10 @@ T.B.C.
 
 ```4d
 /*
-	
-	ビルド
-	
-*/
+ *
+ * ビルド
+ *
+ */
 
 $buildApp:=cs.BuildApp.new()
 
@@ -205,10 +205,10 @@ $buildApp.settings.SignApplication.AdHocSign:=False
 $status:=$buildApp.build()
 
 /*
-	
-	署名
-	
-*/
+ *
+ * 署名
+ *
+ */
 
 $credentials:=New object
 $credentials.username:="keisuke.miyako@4d.com"
@@ -216,17 +216,17 @@ $credentials.password:="@keychain:altool"
 $credentials.keychainProfile:="notarytool"
 $credentials.certificateName:="Developer ID Application: keisuke miyako (Y69CWUC25B)"
 
-$sign:=cs.SignApp.new($credentials)
+$signApp:=cs.SignApp.new($credentials)
 
 $app:=Folder($buildApp.settings.BuildMacDestFolder; fk platform path).folder("Final Application").folder($buildApp.settings.BuildApplicationName+".app")
 
-$status:=$sign.archive($app; ".pkg")
+$status:=$signApp.archive($app; ".pkg")
 
 /*
-	
-	公証
-	
-*/
+ *
+ * 公証
+ *
+ */
 
 $status:=$signApp.notarize($status.archive.file)
 ```
