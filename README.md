@@ -83,7 +83,7 @@ BuildApp.buildComponent()
 
 * データベース設定＞セキュリティ＞外部ファイルのユーザー設定を有効にする
 
-<img width="860" alt="user settings" src="https://user-images.githubusercontent.com/1725068/187574543-112363ae-4b39-4cc7-a492-50208a2713bc.png">
+<img width="860" alt="スクリーンショット 2022-08-31 13 22 28" src="https://user-images.githubusercontent.com/1725068/187592229-0537c20f-ae08-4e45-8696-f2814669bd8c.png">
 
 * デザイン＞設定＞ユーザー設定
 
@@ -101,13 +101,19 @@ BuildApp.buildComponent()
 
 <img width="860" alt="スクリーンショット 2022-08-31 10 53 17" src="https://user-images.githubusercontent.com/1725068/187575383-b525e813-87de-4bfa-ab17-9ca1e8828968.png">
 
-* デザイン＞設定＞データファイル用のユーザー設定
-
 アプリケーションモードのスプラッシュ画面が不要であれば，**インタフェース**ページを開き，**ウィンドウの表示**の**スプラッシュスクリーン**を解除します。
 
-<img width="860" alt="スクリーンショット 2022-08-31 10 54 38" src="https://user-images.githubusercontent.com/1725068/187575688-cb516e06-8e4c-45cb-96d1-5f2a848b3e7b.png">
+<img width="860" alt="スクリーンショット 2022-08-31 13 20 12" src="https://user-images.githubusercontent.com/1725068/187592045-1922b71f-7e8c-4e59-9dd3-b117df20af19.png">
 
 [`eec39b1`](https://github.com/miyako/4d-tutorial-deployment/commit/eec39b14c18b8721d296acb113327ccd1abb4b6e)
+
+* ツールボックス＞メニュー
+
+**モード**メニューを削除します。
+
+<img width="762" alt="スクリーンショット 2022-08-31 13 21 06" src="https://user-images.githubusercontent.com/1725068/187592117-e046d1c2-c25c-4a13-8aa6-8c2686697b39.png">
+
+**注記**: デザインモードには*option*+*command*+右クリックで移動できます。
 
 ## アバウト画面
 
@@ -148,6 +154,18 @@ BuildApp.buildComponent()
 ## アイコンファイル
 
 c.f. Macアプリの.icnsを作るときのメモ
+
+## コンパイル
+
+* 設定＞ストラクチャ設定
+ 
+**コンパイラー**ページを開き，**コンパイル対象CPU**を**全てのプロセッサ**に設定します。
+
+<img width="860" alt="スクリーンショット 2022-08-31 13 22 28" src="https://user-images.githubusercontent.com/1725068/187593957-89e9991d-e69c-4af3-ab34-3d5153fa9ee7.png">
+
+## Apple Developer Program
+
+T.B.C.
 
 ## ビルド
 
