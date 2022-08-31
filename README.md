@@ -113,6 +113,8 @@ BuildApp.buildComponent()
 
 <img width="762" alt="スクリーンショット 2022-08-31 13 21 06" src="https://user-images.githubusercontent.com/1725068/187592117-e046d1c2-c25c-4a13-8aa6-8c2686697b39.png">
 
+**注記**: デザインモードには*option*+*command*+右クリックで移動できます。
+
 ## アバウト画面
 
 `SET ABOUT`を使用し，「4Dについて」画面をカスタマイズします。
