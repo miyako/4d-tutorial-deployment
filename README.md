@@ -109,6 +109,10 @@ BuildApp.buildComponent()
 
 [`eec39b1`](https://github.com/miyako/4d-tutorial-deployment/commit/eec39b14c18b8721d296acb113327ccd1abb4b6e)
 
+## アバウト画面
+
+`SET ABOUT`を使用し，「4Dについて」画面をカスタマイズします。
+
 
 ## 資料/文献
 
