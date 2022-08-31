@@ -148,8 +148,10 @@ BuildApp.buildComponent()
 
 * `(Version type ?? Merged application)`
 * `(Application type=4D Volume desktop) | (Application type=4D Server)`
-* `(Data file=Folder(fk database folder).folder("Default Data").file("default.4DD").platformPath)`
+* `(Data file=Folder(Get 4D folder(Database folder);fk platform path).folder("Default Data").file("default.4DD").platformPath)`
 * `(Is data file locked)`
+
+上記の条件が満たされたなら，`OPEN DATA FILE`または`CREATE DATA FILE`で運用データファイルを作成または使用します。これらのコマンドはアプリケーション再起動前に実行される最後のコマンドであるべきです。既存のスタートアップコードとは相互に排他的な処理になるようにプログラムする必要があります。
 
 ## アイコンファイル
 
@@ -175,6 +177,62 @@ T.B.C.
 
 T.B.C.
 
+## 例題
+
+*build*コンポーネント`test_build`メソッド
+
+```4d
+/*
+	
+	* ビルド
+	
+*/
+
+$buildApp:=cs.BuildApp.new()
+
+$buildApp.findLicenses(New collection("4DOE"; "4UOE"; "4DDP"; "4UUD"))
+$isOEM:=($buildApp.settings.Licenses.ArrayLicenseMac.Item.indexOf("@:4DOE@")#-1)
+
+$buildApp.settings.BuildApplicationName:=Folder(fk database folder).name
+$buildApp.settings.BuildApplicationSerialized:=True
+$buildApp.settings.BuildMacDestFolder:=Temporary folder+Generate UUID
+$buildApp.settings.SourcesFiles.RuntimeVL.RuntimeVLIncludeIt:=True
+$buildApp.settings.SourcesFiles.RuntimeVL.RuntimeVLMacFolder:=$buildApp.getAppFolderForVersion().folder("4D Volume Desktop.app").platformPath
+$buildApp.settings.SourcesFiles.RuntimeVL.IsOEM:=$isOEM
+$buildApp.settings.SignApplication.MacSignature:=False
+$buildApp.settings.SignApplication.AdHocSign:=False
+
+$status:=$buildApp.build()
+
+/*
+	
+	署名
+	
+*/
+
+$credentials:=New object
+$credentials.username:="keisuke.miyako@4d.com"
+$credentials.password:="@keychain:altool"
+$credentials.keychainProfile:="notarytool"
+$credentials.certificateName:="Developer ID Application: keisuke miyako (Y69CWUC25B)"
+
+$signApp:=cs.SignApp.new($credentials)
+
+$app:=Folder($buildApp.settings.BuildMacDestFolder; fk platform path).folder("Final Application").folder($buildApp.settings.BuildApplicationName+".app")
+
+$status.sign:=$signApp.sign($app)
+
+/*
+	
+	公証 
+	
+*/
+
+$status.archive:=$signApp.archive($app; ".pkg")
+
+$status.notarize:=$signApp.notarize($status.archive.file)
+```
+
 ## 資料/文献
 
 * [v17とv18の4Dアプリケーションのビルドを公証する](https://4d-jp.github.io/tech_notes/20-02-25-notarization/)
@@ -184,3 +242,7 @@ T.B.C.
 * [ユーザー設定の有効化](http://developer.4d.com/docs/ja/Desktop/user-settings.html#ユーザー設定の有効化)
 
 * [データファイルの管理](https://developer.4d.com/docs/ja/Desktop/building.html#データファイルの管理)
+
+* [macOS Sierraとビルドアプリケーションの配付について](https://4djug.forumjap.com/t65-topic)
+
+* [Mac版アプリケーションの仕上げと配付に関する情報](https://miyako.github.io/2019/10/16/notarization.html)
