@@ -220,7 +220,7 @@ $signApp:=cs.SignApp.new($credentials)
 
 $app:=Folder($buildApp.settings.BuildMacDestFolder; fk platform path).folder("Final Application").folder($buildApp.settings.BuildApplicationName+".app")
 
-$status:=$signApp.archive($app; ".pkg")
+$status.archive:=$signApp.archive($app; ".pkg")
 
 /*
  *
@@ -228,7 +228,7 @@ $status:=$signApp.archive($app; ".pkg")
  *
  */
 
-$status:=$signApp.notarize($status.archive.file)
+$status.notarize:=$signApp.notarize($status.archive.file)
 ```
 
 ## 資料/文献
