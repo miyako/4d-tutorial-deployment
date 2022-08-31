@@ -121,16 +121,6 @@ BuildApp.buildComponent()
 
 <img width="470" alt="スクリーンショット 2022-08-31 11 31 32" src="https://user-images.githubusercontent.com/1725068/187580368-d06f95e8-b56d-432f-977d-d0b78320a897.png">
 
-## ログファイル
-
-* デザイン＞設定＞データファイル用のユーザー設定
-
-**バックアップ**ページを開き，**ログを使用**を解除します。
-
-<img width="860" alt="スクリーンショット 2022-08-31 11 59 49" src="https://user-images.githubusercontent.com/1725068/187584635-05db6dab-0a98-4027-9f7e-392b5fa63634.png">
-
-ログファイルはデフォルトデータファイルから運用データファイルに切り替えるタイミングで作成します（`SELECt LOG FILE`）。
-
 ## デフォルトデータファイル
 
 プロジェクトフォルダーに`Default Data/default.4DD`というフォルダーが存在する場合，内容がビルドアプリケーション内にコピーされ，デフォルトのデータファイルとしてリードオンリーモードで使用されるようになっています。
@@ -143,7 +133,6 @@ BuildApp.buildComponent()
 
 <img width="778" alt="スクリーンショット 2022-08-31 12 35 33" src="https://user-images.githubusercontent.com/1725068/187587162-18c28b2d-02e8-4ef9-ae37-7f14331ce104.png">
 
-
 データファイルを切り替える条件が満たされているかチェックするコードをスタートアップで実行します。
 
 * `(Version type ?? Merged application)`
@@ -153,9 +142,28 @@ BuildApp.buildComponent()
 
 上記の条件が満たされたなら，`OPEN DATA FILE`または`CREATE DATA FILE`で運用データファイルを作成または使用します。これらのコマンドはアプリケーション再起動前に実行される最後のコマンドであるべきです。既存のスタートアップコードとは相互に排他的な処理になるようにプログラムする必要があります。
 
+* ユーザー設定ファイルもデフォルトデータフォルダーから運用データファイルにコピーします。
+
+## ログファイル
+
+* デザイン＞設定＞データファイル用のユーザー設定
+
+**バックアップ**ページを開き，**ログを使用**を解除します。
+
+<img width="860" alt="スクリーンショット 2022-08-31 11 59 49" src="https://user-images.githubusercontent.com/1725068/187584635-05db6dab-0a98-4027-9f7e-392b5fa63634.png">
+
+デフォルトデータファイルを使用している間は，データベースが書き込み保護されており，まだログファイルを有効にすることはできません。運用データファイルに切り替わった後，ログファイルを使用する条件が満たされているかチェックするコードをスタートアップで実行します。
+
+* `(Version type ?? Merged application)`
+* `(Application type=4D Volume desktop) | (Application type=4D Server)`
+* `(Log file="")`
+* `(Not(Is data file locked)`
+
+`SELECT LOG FILE`でログファイルを作成する場所を決定します。ログファイルは次回のバックアップ完了後から使用されるようになります。
+
 ## アイコンファイル
 
-c.f. Macアプリの.icnsを作るときのメモ
+c.f. [Macアプリの.icnsを作るときのメモ](https://qiita.com/Jacminik/items/a4c8fe20a4cba62f428b)
 
 ## コンパイル
 
