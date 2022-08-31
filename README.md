@@ -113,6 +113,8 @@ BuildApp.buildComponent()
 
 `SET ABOUT`を使用し，「4Dについて」画面をカスタマイズします。
 
+<img width="470" alt="スクリーンショット 2022-08-31 11 31 32" src="https://user-images.githubusercontent.com/1725068/187580368-d06f95e8-b56d-432f-977d-d0b78320a897.png">
+
 
 ## 資料/文献
 
