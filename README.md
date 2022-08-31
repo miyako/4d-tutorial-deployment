@@ -131,11 +131,12 @@ BuildApp.buildComponent()
 
 * `Default Data`フォルダーを作成し，下記の項目をコピーします。
 
-* データファイル
-* インデックスファイル
+* データファイル (.4DD, .match) 
+* インデックスファイル (.4DIndx)
 * 設定フォルダー
 
-<img width="778" alt="スクリーンショット 2022-08-31 12 12 05" src="https://user-images.githubusercontent.com/1725068/187584829-2b4d5910-f833-49d1-8682-a214ddcf8c5a.png">
+<img width="778" alt="スクリーンショット 2022-08-31 12 35 33" src="https://user-images.githubusercontent.com/1725068/187587162-18c28b2d-02e8-4ef9-ae37-7f14331ce104.png">
+
 
 データファイルを切り替える条件が満たされているかチェックするコードをスタートアップで実行します。
 
