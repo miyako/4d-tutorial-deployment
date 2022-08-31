@@ -137,6 +137,12 @@ BuildApp.buildComponent()
 
 <img width="778" alt="スクリーンショット 2022-08-31 12 12 05" src="https://user-images.githubusercontent.com/1725068/187584829-2b4d5910-f833-49d1-8682-a214ddcf8c5a.png">
 
+データファイルを切り替える条件が満たされているかチェックするコードをスタートアップで実行します。
+
+* `(Version type ?? Merged application)`
+* `(Application type=4D Volume desktop) | (Application type=4D Server)`
+* `(Data file=Folder(fk database folder).folder("Default Data").file("default.4DD").platformPath)`
+* `(Is data file locked)`
 
 
 ## 資料/文献
