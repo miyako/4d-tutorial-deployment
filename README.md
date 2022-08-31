@@ -157,7 +157,7 @@ BuildApp.buildComponent()
 * `(Version type ?? Merged application)`
 * `(Application type=4D Volume desktop) | (Application type=4D Server)`
 * `(Log file="")`
-* `(Not(Is data file locked)`
+* `(Not(Is data file locked))`
 
 `SELECT LOG FILE`でログファイルを作成する場所を決定します。ログファイルは次回のバックアップ完了後から使用されるようになります。
 
