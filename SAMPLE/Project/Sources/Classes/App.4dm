@@ -21,9 +21,13 @@ Function runTestForm()
 	
 	$dialog.run($params)
 	
-Function _getAboutMenuTitle()->$title : Text
+Function getName()->$name : Text
 	
 	$name:=Folder:C1567(fk database folder:K87:14).name
+	
+Function _getAboutMenuTitle()->$title : Text
+	
+	$name:=This:C1470.getName()
 	
 	$title:=$name+"について…"
 	

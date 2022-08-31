@@ -2,7 +2,23 @@
 <!DOCTYPE base SYSTEM "http://www.4d.com/dtd/2007/base.dtd" >
 <base name="SAMPLE" uuid="B192F83F05064104A7F2B7A4298E6E80" collation_locale="ja">
 	<schema name="DEFAULT_SCHEMA"/>
+	<table name="Table_1" uuid="8144B6FE44F84E8A98220FABE0A8316A" id="1">
+		<field name="ID" uuid="DA38E4211B6C4B788ADB9F95D6A81E75" type="4" unique="true" autosequence="true" not_null="true" id="1"/>
+		<field name="Field_2" uuid="9AC7C4797AEB404C8AD3FF6D326665E4" type="21" blob_switch_size="2147483647" never_null="true" id="2"/>
+		<primary_key field_name="ID" field_uuid="DA38E4211B6C4B788ADB9F95D6A81E75"/>
+		<table_extra>
+			<editor_table_info displayable_fields_count="6">
+				<color red="255" green="255" blue="255" alpha="255"/>
+				<coordinates left="0" top="0" width="120" height="167.33203125"/>
+			</editor_table_info>
+		</table_extra>
+	</table>
+	<index kind="regular" unique_keys="true" uuid="8CF87E4BAF064F38B19D5C4ABF605445" type="7">
+		<field_ref uuid="DA38E4211B6C4B788ADB9F95D6A81E75" name="ID">
+			<table_ref uuid="8144B6FE44F84E8A98220FABE0A8316A" name="Table_1"/>
+		</field_ref>
+	</index>
 	<base_extra __stringCompHash="icu:68.1.0, alternate=search" __keywordBuildingHash="mecab:0.996;sys.dic:102;">
-		<journal_file journal_file_enabled="true"/>
+		<journal_file journal_file_enabled="false"/>
 	</base_extra>
 </base>
