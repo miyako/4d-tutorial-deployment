@@ -149,6 +149,10 @@ BuildApp.buildComponent()
 
 c.f. Macアプリの.icnsを作るときのメモ
 
+## Apple Developer Program
+
+T.B.C.
+
 ## ビルド
 
 T.B.C.
