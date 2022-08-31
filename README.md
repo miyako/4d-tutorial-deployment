@@ -101,13 +101,17 @@ BuildApp.buildComponent()
 
 <img width="860" alt="スクリーンショット 2022-08-31 10 53 17" src="https://user-images.githubusercontent.com/1725068/187575383-b525e813-87de-4bfa-ab17-9ca1e8828968.png">
 
-* デザイン＞設定＞データファイル用のユーザー設定
-
 アプリケーションモードのスプラッシュ画面が不要であれば，**インタフェース**ページを開き，**ウィンドウの表示**の**スプラッシュスクリーン**を解除します。
 
-<img width="860" alt="スクリーンショット 2022-08-31 10 54 38" src="https://user-images.githubusercontent.com/1725068/187575688-cb516e06-8e4c-45cb-96d1-5f2a848b3e7b.png">
+<img width="860" alt="スクリーンショット 2022-08-31 13 20 12" src="https://user-images.githubusercontent.com/1725068/187592045-1922b71f-7e8c-4e59-9dd3-b117df20af19.png">
 
 [`eec39b1`](https://github.com/miyako/4d-tutorial-deployment/commit/eec39b14c18b8721d296acb113327ccd1abb4b6e)
+
+* ツールボックス＞メニュー
+
+**モード**メニューを削除します。
+
+<img width="762" alt="スクリーンショット 2022-08-31 13 21 06" src="https://user-images.githubusercontent.com/1725068/187592117-e046d1c2-c25c-4a13-8aa6-8c2686697b39.png">
 
 ## アバウト画面
 
