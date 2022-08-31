@@ -1,0 +1,30 @@
+{
+	"Macintosh HD:Users:miyako:Documents:GitHub:4d-tutorial-deployment:SAMPLE:Project:SAMPLE.4DProject": [
+		{
+			"backupPath": "Macintosh HD:Users:miyako:Documents:GitHub:4d-tutorial-deployment:SAMPLE:data[0001].4BK",
+			"structurePath": "Macintosh HD:Users:miyako:Documents:GitHub:4d-tutorial-deployment:SAMPLE:Project:SAMPLE.4DProject",
+			"dataPath": "Macintosh HD:Users:miyako:Documents:GitHub:4d-tutorial-deployment:SAMPLE:Data:data.4DD",
+			"logPath": "",
+			"startingDate": "2022-08-31T02:53:50.185Z",
+			"endingDate": "2022-08-31T02:53:50.185Z",
+			"scheduledDate": "2022-08-31T02:53:50.185Z",
+			"status": -1,
+			"backupNumber": 1,
+			"duration": 161,
+			"attachments": [
+				{
+					"attachmentPath": "Macintosh HD:Users:miyako:Documents:GitHub:4d-tutorial-deployment:SAMPLE:Data:data.4DSyncHeader",
+					"found": false
+				},
+				{
+					"attachmentPath": "Macintosh HD:Users:miyako:Documents:GitHub:4d-tutorial-deployment:SAMPLE:Data:data.4DSyncData",
+					"found": false
+				},
+				{
+					"attachmentPath": "Macintosh HD:Users:miyako:Documents:GitHub:4d-tutorial-deployment:SAMPLE:Data:data.4DIndx",
+					"found": false
+				}
+			]
+		}
+	]
+}

@@ -1,4 +1,12 @@
 {
+	"ABOUT": {
+		"methods": [
+			"run_ABOUT"
+		],
+		"forms": [
+			"ABOUT"
+		]
+	},
 	"TEST": {
 		"methods": [
 			"dialog_TEST",
@@ -6,7 +14,6 @@
 			"test_TEST"
 		],
 		"forms": [
-			"ABOUT",
 			"TEST"
 		]
 	},
