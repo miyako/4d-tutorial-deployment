@@ -77,6 +77,21 @@ BuildApp.buildComponent()
 
 [`55f2066`](https://github.com/miyako/4d-tutorial-deployment/commit/55f20667ded832cf4f358f49bec22ef5f392dd78)
 
+## ユーザー設定
+
+アプリケーションをビルドすると，データベースフォルダーの`Settings`フォルダーは読み書きができなくなります。設定ファイルを外部ファイルで管理するため，[ユーザー設定](http://developer.4d.com/docs/ja/Desktop/user-settings.html#ユーザー設定の有効化)を有効にする必要があります。
+
+* データベース設定＞セキュリティ＞外部ファイルのユーザー設定を有効にする
+
+<img width="860" alt="user settings" src="https://user-images.githubusercontent.com/1725068/187574543-112363ae-4b39-4cc7-a492-50208a2713bc.png">
+
+
+
+
+
+
+
+
 ## 資料/文献
 
 * [v17とv18の4Dアプリケーションのビルドを公証する](https://4d-jp.github.io/tech_notes/20-02-25-notarization/)
