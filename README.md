@@ -238,13 +238,11 @@ $status.notarize:=$signApp.notarize($status.archive.file)
 `test_build_app`メソッドを実行して`.pkg`または`.dmg`形式の署名/公証アーカイブを作成しました。[`0.0.18`](https://github.com/miyako/4d-tutorial-deployment/releases/tag/0.0.18)
 
 ```4d
-$build:=cs.Build.new()
-$build.versionString:=cs.Version.new().updatePatch().getString()
-$status:=$build.buildDesktop(".pkg")
-
-If ($status.archive.success)
-	If ($status.notarize.success)
-		SHOW ON DISK($status.app.platformPath)
+If ($status.build.success)
+	If ($status.archive.success)
+		If ($status.notarize.success)
+			SHOW ON DISK($status.app.platformPath)
+		End if 
 	End if 
 End if 
 ```
