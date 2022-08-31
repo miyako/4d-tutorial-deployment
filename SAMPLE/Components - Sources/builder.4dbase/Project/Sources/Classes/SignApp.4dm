@@ -12,7 +12,7 @@ Class constructor($credentials : Object; $plist : Object)
 		This:C1470.teamId:=$credentials.teamId
 		This:C1470.keychainProfile:=$credentials.keychainProfile
 		
-		This:C1470.archiveFormat:=".dmg"  //.zip, .pkg
+		This:C1470.archiveFormat:=".pkg"  //.zip, .dmg
 		
 		This:C1470.InstallPath:=""  //fpr .pkg
 		
@@ -1026,11 +1026,11 @@ Function hdiutil($src : Object; $dst : 4D:C1709.File)->$status : Object
 			
 			Case of 
 				: (OB Instance of:C1731($dst; 4D:C1709.Folder))
-					$dst:=$dst.file($src.name+".dmg")
+					$dst:=$dst.file($src.name+This:C1470.archiveFormat)
 				: (OB Instance of:C1731($dst; 4D:C1709.File))
-					$dst:=$dst.parent.file($dst.name+".dmg")
+					$dst:=$dst.parent.file($dst.name+This:C1470.archiveFormat)
 				Else 
-					$dst:=$dst.parent.file($dst.name+".dmg")
+					$dst:=$dst.parent.file($dst.name+This:C1470.archiveFormat)
 			End case 
 			
 			var $stdIn; $stdOut; $stdErr : Blob
