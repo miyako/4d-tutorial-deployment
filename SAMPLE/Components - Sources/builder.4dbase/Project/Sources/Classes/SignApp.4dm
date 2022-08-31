@@ -12,10 +12,6 @@ Class constructor($credentials : Object; $plist : Object)
 		This:C1470.teamId:=$credentials.teamId
 		This:C1470.keychainProfile:=$credentials.keychainProfile
 		
-		This:C1470.archiveFormat:=".pkg"  //.zip, .dmg
-		
-		This:C1470.InstallPath:=""  //fpr .pkg
-		
 		This:C1470.identity:=This:C1470.findIdentity()
 		If (This:C1470.identity.length#0)
 			
@@ -414,7 +410,20 @@ Function notarizationInfo($RequestUUID : Text)->$status : Object
 	
 	$status:=This:C1470._altool(New object:C1471("RequestUUID"; $RequestUUID))
 	
-Function archive($app : 4D:C1709.Folder)->$status : Object
+Function archive($app : 4D:C1709.Folder; $format : Text)->$status : Object
+	
+	var $archiveFormat : Text
+	
+	If (Count parameters:C259>1)
+		Case of 
+			: ($format=".pkg")
+				$archiveFormat:=$format
+			: ($format=".zip")
+				$archiveFormat:=$format
+			Else 
+				$archiveFormat:=".dmg"
+		End case 
+	End if 
 	
 	$status:=New object:C1471("success"; False:C215)
 	
@@ -425,11 +434,11 @@ Function archive($app : 4D:C1709.Folder)->$status : Object
 				$dst:=This:C1470.destination.folder(This:C1470.versionID)
 				
 				Case of 
-					: (This:C1470.archiveFormat=".dmg")
+					: ($archiveFormat=".dmg")
 						
 						$status:=This:C1470.hdiutil($app; $dst)
 						
-					: (This:C1470.archiveFormat=".zip")
+					: ($archiveFormat=".zip")
 						
 						$status:=This:C1470.ditto($app; $dst)
 						
@@ -437,13 +446,19 @@ Function archive($app : 4D:C1709.Folder)->$status : Object
 						
 						$status:=This:C1470.pkgbuild($app; $dst)
 						
+						If ($status.success)
+							
+							$status:=This:C1470.productsign($status.pkg; $dst)
+							
+						End if 
+						
 				End case 
 				
 				var $archive : 4D:C1709.File
 				
 				If ($status.success)
 					
-					$archive:=This:C1470.destination.folder(This:C1470.versionID).file($app.name+This:C1470.archiveFormat)
+					$archive:=This:C1470.destination.folder(This:C1470.versionID).file($app.name+$archiveFormat)
 					
 					If ($archive.exists)
 						$status.file:=$archive
@@ -926,6 +941,51 @@ Function install_name_tool($src : Object; $from : Text; $to : Text; $statuses : 
 		
 	End if 
 	
+Function productsign($src : 4D:C1709.File; $dst : 4D:C1709.File)->$status : Object
+	
+	$this:=This:C1470
+	
+	$status:=New object:C1471("success"; False:C215)
+	
+	If (Is macOS:C1572)
+		
+		C_TEXT:C284($signingIdentity)
+		If (This:C1470.identity.length#0)
+			$identity:=This:C1470.identity.query("name == :1"; "Developer ID Installer:@")
+			If ($identity.length#0)
+				$signingIdentity:=$identity[0].name
+			End if 
+		End if 
+		
+		$name:=$src.fullName
+		$src:=$src.rename("$"+$name)
+		$dst:=$dst.file($name)
+		
+		$dst.parent.create()
+		
+		var $stdIn; $stdOut; $stdErr : Blob
+		var $pid : Integer
+		
+		$command:="productsign --sign '"+$signingIdentity+"' "+This:C1470.escape_param($src.path)+" "+This:C1470.escape_param($dst.path)
+		
+		SET ENVIRONMENT VARIABLE:C812("_4D_OPTION_CURRENT_DIRECTORY"; $src.parent.platformPath)
+		LAUNCH EXTERNAL PROCESS:C811($command; $stdIn; $stdOut; $stdErr; $pid)
+		
+		If (BLOB size:C605($stdErr)#0)
+			$status.productsign:=Convert to text:C1012($stdErr; "utf-8")
+			$status.productsign:=Split string:C1554($status.productsign; "\n"; sk ignore empty strings:K86:1 | sk trim spaces:K86:2)
+		Else 
+			If (BLOB size:C605($stdOut)#0)
+				$status.productsign:=Convert to text:C1012($stdOut; "utf-8")
+				$status.productsign:=Split string:C1554($status.productsign; "\n"; sk ignore empty strings:K86:1 | sk trim spaces:K86:2)
+			End if 
+			$status.success:=True:C214
+		End if 
+		
+		$src.delete()
+		
+	End if 
+	
 Function pkgbuild($src : Object; $dst : 4D:C1709.File)->$status : Object
 	
 	$this:=This:C1470
@@ -945,21 +1005,10 @@ Function pkgbuild($src : Object; $dst : 4D:C1709.File)->$status : Object
 					$dst:=$dst.parent.file($dst.name+".pkg")
 			End case 
 			
-			C_TEXT:C284($signingIdentity)
-			If (This:C1470.identity.length#0)
-				$identity:=This:C1470.identity.query("name == :1"; "Developer ID Installer:@")
-				If ($identity.length#0)
-					$signingIdentity:=$identity[0].name
-				End if 
-			End if 
-			
-			$installLocation:="/Applications"
-			
-			If (This:C1470.InstallPath#"")
-				$installLocation:=$installLocation+"/"+This:C1470.InstallPath
-			End if 
-			
 			$dst.parent.create()
+			
+			$installLocation:=Folder:C1567(fk applications folder:K87:20)
+			$installLocation:=$installLocation.file($src.fullName)
 			
 			$payloadFolder:=Folder:C1567(Temporary folder:C486; fk platform path:K87:2).folder(Generate UUID:C1066)
 			$payloadFolder.create()
@@ -989,10 +1038,12 @@ Function pkgbuild($src : Object; $dst : 4D:C1709.File)->$status : Object
 			SET ENVIRONMENT VARIABLE:C812("_4D_OPTION_CURRENT_DIRECTORY"; $payloadFolder.platformPath)
 			LAUNCH EXTERNAL PROCESS:C811($command; $stdIn; $stdOut; $stdErr; $pid)
 			
-			$command:="pkgbuild --sign '"+\
-				$signingIdentity+"' --root payload --install-location "+\
-				This:C1470.escape_param($installLocation)+\
-				" --component-plist component.plist "+\
+			$command:="plutil -replace BundleIsVersionChecked -bool NO component.plist"
+			
+			SET ENVIRONMENT VARIABLE:C812("_4D_OPTION_CURRENT_DIRECTORY"; $payloadFolder.platformPath)
+			LAUNCH EXTERNAL PROCESS:C811($command; $stdIn; $stdOut; $stdErr; $pid)
+			
+			$command:="pkgbuild --install-location "+This:C1470.escape_param($installLocation.path)+" --root payload --component-plist component.plist "+\
 				This:C1470.escape_param($dst.path)+" --identifier "+This:C1470.primaryBundleId
 			
 			SET ENVIRONMENT VARIABLE:C812("_4D_OPTION_CURRENT_DIRECTORY"; $payloadFolder.platformPath)
@@ -1007,6 +1058,7 @@ Function pkgbuild($src : Object; $dst : 4D:C1709.File)->$status : Object
 					$status.pkgbuild:=Split string:C1554($status.pkgbuild; "\n"; sk ignore empty strings:K86:1 | sk trim spaces:K86:2)
 				End if 
 				$status.success:=True:C214
+				$status.pkg:=$dst
 			End if 
 			
 		End if 
@@ -1020,17 +1072,15 @@ Function hdiutil($src : Object; $dst : 4D:C1709.File)->$status : Object
 	
 	If (Is macOS:C1572)
 		
-		$unzip:=($src.extension=".zip")
-		
 		If (OB Instance of:C1731($src; 4D:C1709.File)) | (OB Instance of:C1731($src; 4D:C1709.Folder))
 			
 			Case of 
 				: (OB Instance of:C1731($dst; 4D:C1709.Folder))
-					$dst:=$dst.file($src.name+This:C1470.archiveFormat)
+					$dst:=$dst.file($src.name+".dmg")
 				: (OB Instance of:C1731($dst; 4D:C1709.File))
-					$dst:=$dst.parent.file($dst.name+This:C1470.archiveFormat)
+					$dst:=$dst.parent.file($dst.name+".dmg")
 				Else 
-					$dst:=$dst.parent.file($dst.name+This:C1470.archiveFormat)
+					$dst:=$dst.parent.file($dst.name+".dmg")
 			End case 
 			
 			var $stdIn; $stdOut; $stdErr : Blob

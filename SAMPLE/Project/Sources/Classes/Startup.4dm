@@ -10,17 +10,6 @@ Class constructor
 	
 	This:C1470.defaultDataFile:=Folder:C1567(fk database folder:K87:14).folder("Default Data").file("default.4DD")
 	
-Function _dryRun()
-	
-	This:C1470.switchDataIfNecessary()
-	
-	If (This:C1470.deploymentDataFile.exists)
-		OPEN DATA FILE:C312(This:C1470.deploymentDataFile.platformPath)
-	Else 
-		SELECT LOG FILE:C345(This:C1470.deploymentDataFile.parent.file("data.journal").platformPath)
-		CREATE DATA FILE:C313(This:C1470.deploymentDataFile.platformPath)
-	End if 
-	
 Function switchDataIfNecessary()->$this : cs:C1710.Startup
 	
 	$app:=cs:C1710.App.new()
@@ -36,9 +25,10 @@ Function switchDataIfNecessary()->$this : cs:C1710.Startup
 		If (This:C1470.deploymentDataFile.exists)
 			OPEN DATA FILE:C312(This:C1470.deploymentDataFile.platformPath)
 		Else 
-			//SELECT LOG FILE(This.deploymentDataFile.parent.file("data.journal").platformPath)
 			CREATE DATA FILE:C313(This:C1470.deploymentDataFile.platformPath)
 		End if 
+	Else 
+		SELECT LOG FILE:C345(This:C1470.deploymentDataFile.parent.file("data.journal").platformPath)
 	End if 
 	
 Function _shouldSwitchDataFile()->$shouldCheckDataFile : Boolean

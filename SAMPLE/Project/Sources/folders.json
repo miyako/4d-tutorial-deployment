@@ -9,8 +9,7 @@
 	},
 	"BUILD": {
 		"methods": [
-			"test_build_app",
-			"test_data_switching"
+			"test_build_app"
 		]
 	},
 	"DATABASE": {

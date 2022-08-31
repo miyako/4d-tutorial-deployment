@@ -25,6 +25,24 @@
 					"found": false
 				}
 			]
+		},
+		{
+			"backupPath": "Macintosh HD:Users:miyako:Documents:GitHub:4d-tutorial-deployment:SAMPLE:data[0002].4BK",
+			"structurePath": "Macintosh HD:Users:miyako:Documents:GitHub:4d-tutorial-deployment:SAMPLE:Project:SAMPLE.4DProject",
+			"dataPath": "Macintosh HD:Users:miyako:Documents:GitHub:4d-tutorial-deployment:SAMPLE:Data:data.4DD",
+			"logPath": "",
+			"startingDate": "2022-08-31T10:38:20.996Z",
+			"endingDate": "2022-08-31T10:38:20.996Z",
+			"scheduledDate": "2022-08-31T10:38:20.996Z",
+			"status": -1,
+			"backupNumber": 2,
+			"duration": 91,
+			"attachments": [
+				{
+					"attachmentPath": "Macintosh HD:Users:miyako:Documents:GitHub:4d-tutorial-deployment:SAMPLE:Data:data.4DIndx",
+					"found": true
+				}
+			]
 		}
 	]
 }

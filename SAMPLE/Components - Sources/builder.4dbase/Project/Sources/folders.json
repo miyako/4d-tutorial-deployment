@@ -1,3 +1,8 @@
 {
+	"ERROR": {
+		"methods": [
+			"ON_PARSE_ERROR"
+		]
+	},
 	"trash": {}
 }

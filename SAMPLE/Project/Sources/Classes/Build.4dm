@@ -46,8 +46,8 @@ Function buildDesktop()->$that : cs:C1710.Build
 	
 	$buildApp:=BuildApp(New object:C1471)
 	
-	$buildApp.findLicenses(New collection:C1472("4DOE"; "4UOE"))
-	//$buildApp.findLicenses(New collection("4DDP"; "4UUD"))
+	$buildApp.findLicenses(New collection:C1472("4DOE"; "4UOE"; "4DDP"; "4UUD"))
+	$isOEM:=($buildApp.settings.Licenses.ArrayLicenseMac.Item.indexOf("@:4DOE@")#-1)
 	
 	$buildApp.settings.BuildApplicationName:=This:C1470.applicationName
 	$buildApp.settings.BuildApplicationSerialized:=True:C214
@@ -55,7 +55,7 @@ Function buildDesktop()->$that : cs:C1710.Build
 	$buildApp.settings.SourcesFiles.RuntimeVL.RuntimeVLIncludeIt:=True:C214
 	$buildApp.settings.SourcesFiles.RuntimeVL.RuntimeVLMacFolder:=This:C1470.applicationsFolder.folder(This:C1470.folderName).folder("4D Volume Desktop.app").platformPath
 	$buildApp.settings.SourcesFiles.RuntimeVL.RuntimeVLIconMacPath:=This:C1470.RuntimeVLIconMacPath
-	$buildApp.settings.SourcesFiles.RuntimeVL.IsOEM:=True:C214
+	$buildApp.settings.SourcesFiles.RuntimeVL.IsOEM:=$isOEM
 	$buildApp.settings.SignApplication.MacSignature:=False:C215
 	$buildApp.settings.SignApplication.AdHocSign:=False:C215
 	
@@ -156,6 +156,8 @@ Function _signApp($buildApp : Object; $identifier : Text; $folderName : Text; $a
 	$status.archive:=$signApp.archive($app)
 	
 	If ($status.archive.success)
+		
+		
 		$status.notarize:=$signApp.notarize($status.archive.file; $useOldTool)
 		If ($status.notarize.success)
 			$dmg:=$signApp.destination.folder($signApp.versionID).file($appName+".dmg")
@@ -176,7 +178,8 @@ Function buildAutoUpdateClientServer()->$that : cs:C1710.Build
 	
 	$buildApp:=BuildApp(New object:C1471)
 	
-	$buildApp.findLicenses(New collection:C1472("4DOE"; "4UOS"; "4DOM"))
+	$buildApp.findLicenses(New collection:C1472("4DOE"; "4UOS"; "4DOM"; "4DDP"))
+	$isOEM:=($buildApp.settings.Licenses.ArrayLicenseMac.Item.indexOf("@:4DOE@")#-1)
 	
 	$buildApp.settings.BuildApplicationName:=This:C1470.applicationName
 	$buildApp.settings.BuildMacDestFolder:=This:C1470.releaseFolder.folder(This:C1470.versionString).platformPath
@@ -186,7 +189,7 @@ Function buildAutoUpdateClientServer()->$that : cs:C1710.Build
 	$buildApp.settings.SourcesFiles.CS.ClientMacFolderToMac:=This:C1470.applicationsFolder.folder(This:C1470.folderName).folder("4D Volume Desktop.app").platformPath
 	$buildApp.settings.SourcesFiles.CS.ServerIconMacPath:=This:C1470.ServerIconMacPath
 	$buildApp.settings.SourcesFiles.CS.ClientMacIconForMacPath:=This:C1470.ClientMacIconForMacPath
-	$buildApp.settings.SourcesFiles.CS.IsOEM:=True:C214
+	$buildApp.settings.SourcesFiles.CS.IsOEM:=$isOEM
 	$buildApp.settings.CS.BuildServerApplication:=True:C214
 	$buildApp.settings.CS.BuildCSUpgradeable:=True:C214
 	$buildApp.settings.CS.CurrentVers:=2
@@ -230,8 +233,8 @@ Function buildServer()->$that : cs:C1710.Build
 	
 	$buildApp:=BuildApp(New object:C1471)
 	
-	$buildApp.findLicenses(New collection:C1472("4DOE"; "4UOS"; "4DOM"))
-	//$buildApp.findLicenses(New collection("4DDP"))
+	$buildApp.findLicenses(New collection:C1472("4DOE"; "4UOS"; "4DOM"; "4DDP"))
+	$isOEM:=($buildApp.settings.Licenses.ArrayLicenseMac.Item.indexOf("@:4DOE@")#-1)
 	
 	$buildApp.settings.BuildApplicationName:=This:C1470.applicationName
 	$buildApp.settings.BuildMacDestFolder:=This:C1470.releaseFolder.folder(This:C1470.versionString).platformPath
@@ -241,7 +244,7 @@ Function buildServer()->$that : cs:C1710.Build
 	$buildApp.settings.SourcesFiles.CS.ClientMacFolderToMac:=This:C1470.applicationsFolder.folder(This:C1470.folderName).folder("4D Volume Desktop.app").platformPath
 	$buildApp.settings.SourcesFiles.CS.ServerIconMacPath:=This:C1470.ServerIconMacPath
 	$buildApp.settings.SourcesFiles.CS.ClientMacIconForMacPath:=This:C1470.ClientMacIconForMacPath
-	$buildApp.settings.SourcesFiles.CS.IsOEM:=True:C214
+	$buildApp.settings.SourcesFiles.CS.IsOEM:=$isOEM
 	$buildApp.settings.CS.BuildServerApplication:=True:C214
 	$buildApp.settings.CS.LastDataPathLookup:="ByAppName"
 	$buildApp.settings.SignApplication.MacSignature:=False:C215
