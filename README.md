@@ -242,11 +242,9 @@ $build:=cs.Build.new()
 $build.versionString:=cs.Version.new().updatePatch().getString()
 $status:=$build.buildDesktop(".pkg")
 
-If ($status.sign.success)
-	If ($status.archive.success)
-		If ($status.notarize.success)
-			SHOW ON DISK($status.app.platformPath)
-		End if 
+If ($status.archive.success)
+	If ($status.notarize.success)
+		SHOW ON DISK($status.app.platformPath)
 	End if 
 End if 
 ```
