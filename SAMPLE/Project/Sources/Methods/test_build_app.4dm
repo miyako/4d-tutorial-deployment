@@ -3,9 +3,9 @@ $build:=cs:C1710.Build.new()
 
 $build.versionString:=cs:C1710.Version.new().updatePatch().getString()
 
-$status:=$build.buildDesktop(".dmg")
+$status:=$build.buildDesktop(".pkg")
 
-If ($status.sign.success)
+If ($status.build.success)
 	If ($status.archive.success)
 		If ($status.notarize.success)
 			SHOW ON DISK:C922($status.app.platformPath)
