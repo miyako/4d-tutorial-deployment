@@ -70,14 +70,16 @@ Function buildDesktop($format : Text)->$status : Object
 	$buildApp.settings.SignApplication.MacSignature:=False:C215
 	$buildApp.settings.SignApplication.AdHocSign:=False:C215
 	
-	$status:=New object:C1471
+	$status:=$buildApp.build()
 	
-	$status.build:=$buildApp.build()
-	
-	If ($status.build.success)
+	If ($status.success)
 		
-		$status.signatures:=This:C1470._signApp($buildApp; This:C1470.desktopAppIdentifier; "Final Application"; $buildApp.settings.BuildApplicationName; False:C215)
+		$status:=This:C1470._signApp($buildApp; This:C1470.desktopAppIdentifier; "Final Application"; $buildApp.settings.BuildApplicationName; False:C215)
 		
+		$status.build:=New object:C1471("success"; True:C214)
+		
+	Else 
+		$status.build:=$status
 	End if 
 	
 Function _escape_param($escape_param : Text)->$param : Text
@@ -226,11 +228,9 @@ Function buildAutoUpdateClientServer($format : Text)->$status : Object
 	$buildApp.settings.SignApplication.MacCertificate:=This:C1470.certificateName
 	$buildApp.settings.SignApplication.AdHocSign:=False:C215
 	
-	$status:=New object:C1471
+	$status:=$buildApp.build()
 	
-	$status.build:=$buildApp.build()
-	
-	If ($status.build.success)
+	If ($status.success)
 		
 		$logsFolder:=Folder:C1567(fk logs folder:K87:17)
 		$name:=$buildApp.lastSettingsFile.name
@@ -243,11 +243,13 @@ Function buildAutoUpdateClientServer($format : Text)->$status : Object
 		DOM CLOSE XML:C722($dom)
 		
 		//あらためて署名する
-		$status.signatures:=This:C1470._signApp($buildApp; This:C1470.serverAppIdentifier; "Client Server executable"; $buildApp.settings.BuildApplicationName+" Server"; False:C215)
-		$status.signatures.combine(This:C1470._signApp($buildApp; This:C1470.clientAppIdentifier; "Client Server executable"; $buildApp.settings.BuildApplicationName+" Client"; False:C215))
+		$status:=This:C1470._signApp($buildApp; This:C1470.serverAppIdentifier; "Client Server executable"; $buildApp.settings.BuildApplicationName+" Server"; False:C215)
+		$status:=This:C1470._signApp($buildApp; This:C1470.clientAppIdentifier; "Client Server executable"; $buildApp.settings.BuildApplicationName+" Client"; False:C215)
 		
-		This:C1470.releaseFolder.folder(This:C1470.versionString).delete(Delete with contents:K24:24)
+		$status.build:=New object:C1471("success"; True:C214)
 		
+	Else 
+		$status.build:=$status
 	End if 
 	
 Function buildServer($format : Text)->$status : Object
@@ -289,11 +291,9 @@ Function buildServer($format : Text)->$status : Object
 	$buildApp.settings.SignApplication.MacSignature:=False:C215
 	$buildApp.settings.SignApplication.AdHocSign:=False:C215
 	
-	$status:=New object:C1471
+	$status:=$buildApp.build()
 	
-	$status.build:=$buildApp.build()
-	
-	If ($status.build.success)
+	If ($status.success)
 		
 		$logsFolder:=Folder:C1567(fk logs folder:K87:17)
 		$name:=$buildApp.lastSettingsFile.name
@@ -311,8 +311,12 @@ Function buildServer($format : Text)->$status : Object
 		$clientFolder.create()
 		$dmg.moveTo($clientFolder)
 		
-		$status.signatures:=This:C1470._signApp($buildApp; This:C1470.serverAppIdentifier; "Client Server executable"; $buildApp.settings.BuildApplicationName+" Server"; False:C215)
+		$status:=This:C1470._signApp($buildApp; This:C1470.serverAppIdentifier; "Client Server executable"; $buildApp.settings.BuildApplicationName+" Server"; False:C215)
 		
+		$status.build:=New object:C1471("success"; True:C214)
+		
+	Else 
+		$status.build:=$status
 	End if 
 	
 Function _prepareClientRuntime()->$status : Object
