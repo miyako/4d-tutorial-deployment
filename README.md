@@ -153,6 +153,14 @@ BuildApp.buildComponent()
 
 c.f. Macアプリの.icnsを作るときのメモ
 
+## コンパイル
+
+* 設定＞ストラクチャ設定
+ 
+**コンパイラー**ページを開き，**コンパイル対象CPU**を**全てのプロセッサ**に設定します。
+
+<img width="860" alt="スクリーンショット 2022-08-31 13 22 28" src="https://user-images.githubusercontent.com/1725068/187593957-89e9991d-e69c-4af3-ab34-3d5153fa9ee7.png">
+
 ## Apple Developer Program
 
 T.B.C.
