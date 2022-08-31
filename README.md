@@ -243,7 +243,7 @@ $build.versionString:=cs.Version.new().updatePatch().getString()
 $status:=$build.buildDesktop(".pkg")
 ```
 
-[0.0.18](https://github.com/miyako/4d-tutorial-deployment/releases/tag/0.0.17)
+[0.0.18](https://github.com/miyako/4d-tutorial-deployment/releases/tag/0.0.18)
 
 * `updatePatch()`: パッチ番号をインクリメントします。このバージョンコードが`Info.plist`に書き込まれます。
 * `buildDesktop()`: ビルド/署名/アーカイブ/公証まで一連の処理を実行します。
