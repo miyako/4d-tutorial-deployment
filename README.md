@@ -107,6 +107,7 @@ BuildApp.buildComponent()
 
 <img width="860" alt="スクリーンショット 2022-08-31 10 54 38" src="https://user-images.githubusercontent.com/1725068/187575688-cb516e06-8e4c-45cb-96d1-5f2a848b3e7b.png">
 
+[`eec39b1`](https://github.com/miyako/4d-tutorial-deployment/commit/eec39b14c18b8721d296acb113327ccd1abb4b6e)
 
 
 ## 資料/文献
