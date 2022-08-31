@@ -177,6 +177,60 @@ T.B.C.
 
 T.B.C.
 
+## 例題
+
+*build*コンポーネント`test_build`メソッド
+
+```4d
+/*
+	
+	ビルド
+	
+*/
+
+$buildApp:=cs.BuildApp.new()
+
+$buildApp.findLicenses(New collection("4DOE"; "4UOE"; "4DDP"; "4UUD"))
+$isOEM:=($buildApp.settings.Licenses.ArrayLicenseMac.Item.indexOf("@:4DOE@")#-1)
+
+$buildApp.settings.BuildApplicationName:=Folder(fk database folder).name
+$buildApp.settings.BuildApplicationSerialized:=True
+$buildApp.settings.BuildMacDestFolder:=Temporary folder+Generate UUID
+$buildApp.settings.SourcesFiles.RuntimeVL.RuntimeVLIncludeIt:=True
+$buildApp.settings.SourcesFiles.RuntimeVL.RuntimeVLMacFolder:=$buildApp.getAppFolderForVersion().folder("4D Volume Desktop.app").platformPath
+$buildApp.settings.SourcesFiles.RuntimeVL.IsOEM:=$isOEM
+$buildApp.settings.SignApplication.MacSignature:=False
+$buildApp.settings.SignApplication.AdHocSign:=False
+
+$status:=$buildApp.build()
+
+/*
+	
+	署名
+	
+*/
+
+$credentials:=New object
+$credentials.username:="keisuke.miyako@4d.com"
+$credentials.password:="@keychain:altool"
+$credentials.keychainProfile:="notarytool"
+$credentials.certificateName:="Developer ID Application: keisuke miyako (Y69CWUC25B)"
+
+$sign:=cs.SignApp.new($credentials)
+
+$app:=Folder($buildApp.settings.BuildMacDestFolder; fk platform path).folder("Final Application").folder($buildApp.settings.BuildApplicationName+".app")
+
+$status:=$sign.archive($app; ".pkg")
+
+/*
+	
+	公証
+	
+*/
+
+$status:=$signApp.notarize($status.archive.file)
+```
+
 ## 資料/文献
 
 * [v17とv18の4Dアプリケーションのビルドを公証する](https://4d-jp.github.io/tech_notes/20-02-25-notarization/)
