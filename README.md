@@ -131,9 +131,9 @@ BuildApp.buildComponent()
 
 * `Default Data`フォルダーを作成し，下記の項目をコピーします。
 
-* データファイル (.4DD, .match) 
-* インデックスファイル (.4DIndx)
-* 設定フォルダー
+* データファイル `default.4DD` `default.Match` 
+* インデックスファイル `default.4DIndx`
+* 設定フォルダー `Settings`
 
 <img width="778" alt="スクリーンショット 2022-08-31 12 35 33" src="https://user-images.githubusercontent.com/1725068/187587162-18c28b2d-02e8-4ef9-ae37-7f14331ce104.png">
 
