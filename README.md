@@ -85,7 +85,17 @@ BuildApp.buildComponent()
 
 <img width="860" alt="user settings" src="https://user-images.githubusercontent.com/1725068/187574543-112363ae-4b39-4cc7-a492-50208a2713bc.png">
 
+* デザイン＞設定＞ユーザー設定
 
+が管理できるようになります。
+
+データファイルがストラクチャファイルとは別の場所にあれば，
+
+* デザイン＞設定＞データファイル用のユーザー設定
+
+も管理できるようになります。
+
+**データファイル用のユーザー設定**を開きます。
 
 
 
