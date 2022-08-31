@@ -145,6 +145,17 @@ BuildApp.buildComponent()
 * `(Data file=Folder(fk database folder).folder("Default Data").file("default.4DD").platformPath)`
 * `(Is data file locked)`
 
+## アイコンファイル
+
+c.f. Macアプリの.icnsを作るときのメモ
+
+## ビルド
+
+T.B.C.
+
+## 署名と公証
+
+T.B.C.
 
 ## 資料/文献
 
