@@ -1,3 +1,13 @@
 {
+	"TEST": {
+		"methods": [
+			"dialog_TEST",
+			"run_dialog",
+			"test_TEST"
+		],
+		"forms": [
+			"TEST"
+		]
+	},
 	"trash": {}
 }
