@@ -23,7 +23,7 @@ Function runTestForm()
 	
 Function getName()->$name : Text
 	
-	$name:=Folder:C1567(fk database folder:K87:14).name
+	$name:="SAMPLE"
 	
 Function _getAboutMenuTitle()->$title : Text
 	

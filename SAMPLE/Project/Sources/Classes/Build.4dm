@@ -5,6 +5,9 @@ Class constructor
 	This:C1470.RuntimeVLIconMacPath:=Get 4D folder:C485(Current resources folder:K5:16)+"SAMPLE.icns"
 	This:C1470.ServerIconMacPath:=Get 4D folder:C485(Current resources folder:K5:16)+"SAMPLE.icns"
 	This:C1470.ClientMacIconForMacPath:=Get 4D folder:C485(Current resources folder:K5:16)+"SAMPLE.icns"
+	This:C1470.desktopAppIdentifier:="com.example.desktop"
+	This:C1470.serverAppIdentifier:="com.example.server"
+	This:C1470.clientAppIdentifier:="com.example.client"
 	
 	This:C1470.username:="keisuke.miyako@4d.com"
 	This:C1470.password:="@keychain:altool"
@@ -44,6 +47,7 @@ Function buildDesktop()->$that : cs:C1710.Build
 	$buildApp:=BuildApp(New object:C1471)
 	
 	$buildApp.findLicenses(New collection:C1472("4DOE"; "4UOE"))
+	//$buildApp.findLicenses(New collection("4DDP"; "4UUD"))
 	
 	$buildApp.settings.BuildApplicationName:=This:C1470.applicationName
 	$buildApp.settings.BuildApplicationSerialized:=True:C214
@@ -59,7 +63,7 @@ Function buildDesktop()->$that : cs:C1710.Build
 	
 	If ($status.success)
 		
-		$status:=This:C1470._signApp($buildApp; "jp.dgw.desktop"; "Final Application"; $buildApp.settings.BuildApplicationName; False:C215)
+		$status:=This:C1470._signApp($buildApp; This:C1470.desktopAppIdentifier; "Final Application"; $buildApp.settings.BuildApplicationName; False:C215)
 		
 	End if 
 	
@@ -155,8 +159,7 @@ Function _signApp($buildApp : Object; $identifier : Text; $folderName : Text; $a
 		$status.notarize:=$signApp.notarize($status.archive.file; $useOldTool)
 		If ($status.notarize.success)
 			$dmg:=$signApp.destination.folder($signApp.versionID).file($appName+".dmg")
-			$ftp:=cs:C1710.FTP.new()
-			$status.ftp:=$ftp.upload(This:C1470.versionString; $dmg)
+			$status.dmg:=$dmg
 		End if 
 	End if 
 	
@@ -223,13 +226,14 @@ Function buildServer()->$that : cs:C1710.Build
 	$version:=This:C1470.version
 	This:C1470.folderName:=This:C1470.folderName
 	
-	This:C1470.versionString:=cs:C1710.Version.new().updatePatch().getString()
+	This:C1470.versionString:=cs:C1710.Version.new().getString()
 	
 	$buildApp:=BuildApp(New object:C1471)
 	
 	$buildApp.findLicenses(New collection:C1472("4DOE"; "4UOS"; "4DOM"))
+	//$buildApp.findLicenses(New collection("4DDP"))
 	
-	$buildApp.settings.BuildApplicationName:="Doctor’s Good Will"
+	$buildApp.settings.BuildApplicationName:=This:C1470.applicationName
 	$buildApp.settings.BuildMacDestFolder:=This:C1470.releaseFolder.folder(This:C1470.versionString).platformPath
 	$buildApp.settings.SourcesFiles.CS.ServerIncludeIt:=True:C214
 	$buildApp.settings.SourcesFiles.CS.ClientMacIncludeIt:=False:C215
@@ -263,7 +267,7 @@ Function buildServer()->$that : cs:C1710.Build
 		$clientFolder.create()
 		$dmg.moveTo($clientFolder)
 		
-		$status:=This:C1470._signApp($buildApp; "jp.dgw.server"; "Client Server executable"; $buildApp.settings.BuildApplicationName+" Server"; False:C215)
+		$status:=This:C1470._signApp($buildApp; This:C1470.serverAppIdentifier; "Client Server executable"; $buildApp.settings.BuildApplicationName+" Server"; False:C215)
 		
 	End if 
 	
@@ -287,7 +291,7 @@ Function _prepareClientRuntime()->$that : cs:C1710.Build
 	
 	$app:=This:C1470.applicationsFolder.folder(This:C1470.folderName).folder("4D Volume Desktop.app")
 	
-	$identifier:="jp.dgw.client"
+	$identifier:=This:C1470.clientAppIdentifier
 	
 	$plist:=New object:C1471("CFBundleIdentifier"; $identifier)
 	

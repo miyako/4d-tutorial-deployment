@@ -49,9 +49,9 @@
 				},
 				"Input": {
 					"type": "input",
-					"left": 361,
+					"left": 301,
 					"top": 84,
-					"width": 90,
+					"width": 150,
 					"height": 17,
 					"dataSource": "Form:C1466.version",
 					"enterable": false,
@@ -97,7 +97,7 @@
 		}
 	],
 	"menuBar": "Barre #1",
-	"geometryStamp": 168,
+	"geometryStamp": 174,
 	"formSizeAnchor": "閉じる",
 	"method": "method.4dm",
 	"editor": {

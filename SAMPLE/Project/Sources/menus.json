@@ -9,9 +9,6 @@
 				},
 				{
 					"link": 32002
-				},
-				{
-					"link": 32003
 				}
 			]
 		}
@@ -85,16 +82,6 @@
 				{
 					"title": ":xliff:CommonMenuItemShowClipboard",
 					"action": "showClipboard"
-				}
-			]
-		},
-		{
-			"link": 32003,
-			"title": ":xliff:CommonMenuMode",
-			"items": [
-				{
-					"title": ":xliff:CommonMenuItemDesign",
-					"action": "design"
 				}
 			]
 		}

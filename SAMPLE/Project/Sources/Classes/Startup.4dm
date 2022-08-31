@@ -36,7 +36,7 @@ Function switchDataIfNecessary()->$this : cs:C1710.Startup
 		If (This:C1470.deploymentDataFile.exists)
 			OPEN DATA FILE:C312(This:C1470.deploymentDataFile.platformPath)
 		Else 
-			SELECT LOG FILE:C345(This:C1470.deploymentDataFile.parent.file("data.journal").platformPath)
+			//SELECT LOG FILE(This.deploymentDataFile.parent.file("data.journal").platformPath)
 			CREATE DATA FILE:C313(This:C1470.deploymentDataFile.platformPath)
 		End if 
 	End if 
