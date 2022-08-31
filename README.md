@@ -148,8 +148,10 @@ BuildApp.buildComponent()
 
 * `(Version type ?? Merged application)`
 * `(Application type=4D Volume desktop) | (Application type=4D Server)`
-* `(Data file=Folder(fk database folder).folder("Default Data").file("default.4DD").platformPath)`
+* `(Data file=Folder(Get 4D folder(Database folder);fk platform path).folder("Default Data").file("default.4DD").platformPath)`
 * `(Is data file locked)`
+
+上記の条件が満たされたなら，`OPEN DATA FILE`または`CREATE DATA FILE`で運用データファイルを作成または使用します。これらのコマンドはアプリケーション再起動前に実行される最後のコマンドであるべきです。既存のスタートアップコードとは相互に排他的な処理になるようにプログラムする必要があります。
 
 ## アイコンファイル
 
