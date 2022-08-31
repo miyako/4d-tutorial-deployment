@@ -7,6 +7,17 @@
 			"ABOUT"
 		]
 	},
+	"BUILD": {
+		"methods": [
+			"test_build_app",
+			"test_data_switching"
+		]
+	},
+	"DATABASE": {
+		"tables": [
+			"Table_1"
+		]
+	},
 	"TEST": {
 		"methods": [
 			"dialog_TEST",
