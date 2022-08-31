@@ -243,7 +243,7 @@ $status.notarize:=$signApp.notarize($status.archive.file)
 
 ## サンプルビルド
 
-`test_build_app`メソッドを実行して`.pkg`または`.dmg`形式の署名/公証アーカイブを作成しました。[`0.0.18`](https://github.com/miyako/4d-tutorial-deployment/releases/tag/0.0.18)
+`test_build_app`メソッドを実行して`.pkg`または`.dmg`形式の署名/公証アーカイブを作成しました。[`0.0.20`](https://github.com/miyako/4d-tutorial-deployment/releases/tag/0.0.20)
 
 ```4d
 If ($status.build.success)
@@ -255,7 +255,7 @@ If ($status.build.success)
 End if 
 ```
 
-[`83dd141`](https://github.com/miyako/4d-tutorial-deployment/commit/83dd141666ec11f0c879690720f5705edd955317)
+[`505bca8`](https://github.com/miyako/4d-tutorial-deployment/commit/505bca8adeabbeec6ede7f9e381a28f37027e167)
 
 * `updatePatch()`: パッチ番号をインクリメントします。このバージョンコードが`Info.plist`に書き込まれます。
 * `buildDesktop()`: ビルド/署名/アーカイブ/公証まで一連の処理を実行します。
