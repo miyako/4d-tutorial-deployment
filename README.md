@@ -369,22 +369,6 @@ xcrun notarytool store-credentials <item_name> --apple-id <apple_developer_id> -
 ```
 xcrun notarytool --keychain-profile <item_name>
 ```
-
-サンプルプログラムにインストールされている*builder*コンポーネントの`SignApp`クラスには，コード署名や公証に必要なコマンドラインツールが実装されています。
-
-* altool - 公証
-* notarytool - 公証
-* stapler - ステープル
-* codesign - コード署名
-* ditto - .zipを作成
-* hdiutil - .dmgを作成
-* install_name_tool - ダイナミックリンクライブラリの参照パスを書き換え
-* pkgbuild - .pkgの作成
-* productsign - .pkgの署名
-* xcode-select - Xcodeの管理
-* security - キーチェーンの検索
-* plutil - プロパティリストの編集
-
 #### エンタイトルメント
 
 アプリのコード署名には，アプリの実行に必要な**エンタイトルメント**が組み込まれることになっています。エンタイトルメントは，XML形式のプロパティリスト（``.plist``）で編集します。XML形式の``.plist``をそのままコード署名に使用することはできません。バイナリ形式の``.plist``に変換する必要があります。ファイル形式を変換するには，下記のようなコマンドラインを実行します。
@@ -451,9 +435,30 @@ security find-identity -p basic -v
 xcrun stapler staple <path>
 ```
 
+サンプルプログラムにインストールされている*builder*コンポーネントの`SignApp`クラスには，コード署名や公証に必要なコマンドラインツールが実装されています。
+
+* altool - 公証
+* notarytool - 公証
+* stapler - ステープル
+* codesign - コード署名
+* ditto - .zipを作成
+* hdiutil - .dmgを作成
+* install_name_tool - ダイナミックリンクライブラリの参照パスを書き換え
+* pkgbuild - .pkgの作成
+* productsign - .pkgの署名
+* xcode-select - Xcodeの管理
+* security - キーチェーンの検索
+* plutil - プロパティリストの編集
+
+コンポーネントを使用すれば，オブジェクト指向のシンプルなAPIでコード署名と公証を済ませることができます。[例題](https://github.com/miyako/4d-tutorial-deployment/blob/main/README.md#例題)
+
 ## ビルド
 
-T.B.C.
+デザインモードの**アプリケーションビルド**画面を使用すれば，基本的な項目が設定できます。より細かくビルド過程を制御するためには，作成したビルド設定XMLファイルと`BUILD APPLICATION`コマンドを使用し，ログファイルを解析することが求められます。
+
+サンプルプログラムにインストールされている*builder*コンポーネントの`BuildApp`クラスには，`BUILD APPLICATION`コマンドの全オプションが実装されています。
+
+コンポーネントを使用すれば，オブジェクト指向のシンプルなAPIでビルドを済ませることができます。[例題](https://github.com/miyako/4d-tutorial-deployment/blob/main/README.md#例題)
 
 ## 例題
 
