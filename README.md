@@ -522,10 +522,9 @@ $status.notarize:=$signApp.notarize($status.archive.file)
 
 ```4d
 $build:=cs.Build.new()
-
 $build.versionString:=cs.Version.new().updatePatch().getString()
-
 $status:=$build.buildDesktop(".dmg")
+
 If ($status.build.success)
 	If ($status.archive.success)
 		If ($status.notarize.success)
