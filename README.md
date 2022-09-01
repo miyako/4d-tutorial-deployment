@@ -254,12 +254,12 @@ Apple Developer Programには，[無料のプログラム](https://developer.app
 
 #### Apple ID
 
-Apple IDは，Mac，iOSデバイス，アプリ，オンラインいずれかの方法で作成することができます。Macユーザーであれば，すでに保有しているのではないでしょうか。
+Apple IDは，Mac，iOSデバイス，アプリ，オンラインいずれかの方法で作成することができます。Macユーザーであれば，すでに保有しているかもしれません。
 
-* [デバイスの設定時に](https://support.apple.com/ja-jp/HT204316#setup)
-* [App Storeで](https://support.apple.com/ja-jp/HT204316#appstore)
-* [iTunesで](https://support.apple.com/ja-jp/HT204316#itunes)
-* [Webで](https://support.apple.com/ja-jp/HT204316#web)
+* [デバイスの設定時に作成した](https://support.apple.com/ja-jp/HT204316#setup)
+* [App Storeで作成した](https://support.apple.com/ja-jp/HT204316#appstore)
+* [iTunesで作成した](https://support.apple.com/ja-jp/HT204316#itunes)
+* [Webで作成した](https://support.apple.com/ja-jp/HT204316#web)
 
 アプリ開発用に新しいアカウントを作成することもできますが，**２ファクタ認証**を有効にする必要があり，原則的に２台以上のApple機器で同じApple IDを使用していることが想定されているので，個人のApple IDをそのまま使用したほうが簡単かもしれません。
 
