@@ -450,7 +450,7 @@ xcrun stapler staple <path>
 * security - キーチェーンの検索
 * plutil - プロパティリストの編集
 
-コンポーネントを使用すれば，オブジェクト指向のシンプルなAPIでコード署名と公証を済ませることができます。[例題](https://github.com/miyako/4d-tutorial-deployment/blob/main/README.md#例題)
+コンポーネントを使用すれば，オブジェクト指向のシンプルなAPIでコード署名と公証を済ませることができます。[→例題](https://github.com/miyako/4d-tutorial-deployment/blob/main/README.md#例題)
 
 ## ビルド
 
@@ -458,7 +458,7 @@ xcrun stapler staple <path>
 
 サンプルプログラムにインストールされている*builder*コンポーネントの`BuildApp`クラスには，`BUILD APPLICATION`コマンドの全オプションが実装されています。
 
-コンポーネントを使用すれば，オブジェクト指向のシンプルなAPIでビルドを済ませることができます。[例題](https://github.com/miyako/4d-tutorial-deployment/blob/main/README.md#例題)
+コンポーネントを使用すれば，オブジェクト指向のシンプルなAPIでビルドを済ませることができます。[→例題](https://github.com/miyako/4d-tutorial-deployment/blob/main/README.md#例題)
 
 ## 例題
 
