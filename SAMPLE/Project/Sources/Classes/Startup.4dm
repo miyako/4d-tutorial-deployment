@@ -87,15 +87,16 @@ Function linkComponents()->$this : cs:C1710.Startup
 			$doIt:=False:C215
 			
 			Case of 
+				: (This:C1470.componentsFolder.folder($alias+".4dbase").exists)
+				: ($aliasFile.isPackage)
 				: ($aliasFile.isAlias)
 					
 					RESOLVE ALIAS:C695($aliasFile.platformPath; $path)
+					
 					If (Test path name:C476($path)#Is a folder:K24:2)
 						$aliasFile.delete()
-						$doIt:=True:C214
+						$doIt:=True:C214  //recreate alias
 					End if 
-					
-				: ($aliasFile.isPackage)
 					
 				Else 
 					If ($aliasFile.exists)
