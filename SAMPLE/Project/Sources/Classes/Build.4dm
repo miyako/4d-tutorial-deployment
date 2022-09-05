@@ -170,6 +170,10 @@ Function _signApp($buildApp : Object; $identifier : Text; $folderName : Text; $a
 		$signApp.entitlements:=This:C1470.entitlements
 	End if 
 	
+	If (This:C1470.removeCEF#Null:C1517)
+		$signApp.options.removeCEF:=This:C1470.removeCEF
+	End if 
+	
 	$status.sign:=$signApp.sign($app)
 	
 	$status.archive:=$signApp.archive($app; This:C1470.format)
