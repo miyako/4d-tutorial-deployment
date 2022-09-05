@@ -208,7 +208,7 @@ Function set_window_position($formIdentifier : Text; $window : Integer)
 	
 Function get_window_bounds_file($tableName : Text; $formName : Text)->$file : 4D:C1709.File
 	
-	$prefFolder:=Folder:C1567(fk user preferences folder:K87:10).parent.folder("Makoto-Ya")
+	$prefFolder:=Folder:C1567(fk data folder:K87:12).folder("Forms")
 	
 	$file:=$prefFolder.folder($tableName).file($formName+".json")
 	
