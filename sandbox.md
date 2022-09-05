@@ -36,7 +36,7 @@ CEFを削除して署名と公証をすればサンドボックス環境でク�
 
 [0.0.26](https://github.com/miyako/4d-tutorial-deployment/releases/tag/0.0.26)
 
-## アプリケーショングループを設定すれば良い?
+## セキュリティグループを設定すれば良い?
 
 メインアプリケーションとCEFのヘルパーアプリケーションは同一のセキュリティグループに属する必要がある。
 
@@ -52,3 +52,4 @@ CEFを削除して署名と公証をすればサンドボックス環境でク�
 * `com.apple.security.app-sandbox`: true
 * `com.apple.security.inherit`: true
 
+セキュリティグループを設定すればサンドボックス環境でクラッシュしないことが確認できた。
