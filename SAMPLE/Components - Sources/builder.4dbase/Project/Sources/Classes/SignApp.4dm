@@ -74,6 +74,7 @@ unused option:local (don't use timestamp server)
 		This:C1470.options.removePHP:=False:C215
 		This:C1470.options.movePluginManifest:=False:C215
 		This:C1470.options.removeComponentPlugins:=True:C214
+		This:C1470.options.removeCEF:=False:C215
 		
 /*
 		
@@ -95,6 +96,8 @@ Function sign($app : 4D:C1709.Folder)->$statuses : Collection
 			If ($app.exists)
 				If (This:C1470.signingIdentity#Null:C1517)
 					
+					This:C1470.app:=$app
+					
 					$statuses:=New collection:C1472
 					
 					If (This:C1470.options.signApp)
@@ -109,6 +112,10 @@ Function sign($app : 4D:C1709.Folder)->$statuses : Collection
 						
 						If (This:C1470.options.signHelpers)
 							This:C1470._signHelpers($app; $statuses)
+						End if 
+						
+						If (This:C1470.options.removeCEF)
+							This:C1470._removeCEF($app; $statuses)
 						End if 
 						
 						If (This:C1470.options.signNativeComponents)
@@ -484,7 +491,7 @@ Function _signDatabase($app : 4D:C1709.Folder; $statuses : Collection)->$this : 
 	
 	If ($folder.exists)
 		For each ($file; $folder.files(fk recursive:K87:7 | fk ignore invisible:K87:22).query("extension in :1"; $extensions))
-			$statuses.push(This:C1470.codesign($file; This:C1470.CONST.WITHOUT_HARDENED_RUNTIME; This:C1470.CONST.FORCE))
+			$statuses.push(This:C1470.codesign($file; This:C1470.CONST.WITH_HARDENED_RUNTIME; This:C1470.CONST.FORCE))
 		End for each 
 	End if 
 	
@@ -511,6 +518,19 @@ Function _removeComponentPlugins($app : 4D:C1709.Folder; $statuses : Collection)
 			$plugins.delete(Delete with contents:K24:24)
 		End if 
 	End for each 
+	
+Function _removeCEF($app : 4D:C1709.Folder; $statuses : Collection)->$this : cs:C1710.SignApp
+	
+	$this:=This:C1470
+	
+	var $file : 4D:C1709.File
+	var $folder : 4D:C1709.Folder
+	
+	$folder:=$app.folder("Contents").folder("Native Components").folder("WebViewerCEF.bundle")
+	$folder.delete(Delete with contents:K24:24)
+	
+	$file:=$app.folder("Contents").file("Chromium Embedded Framework.framework")
+	$file.delete()
 	
 Function _removePHP($app : 4D:C1709.Folder; $statuses : Collection)->$this : cs:C1710.SignApp
 	
@@ -555,7 +575,7 @@ Function _signComponents($app : 4D:C1709.Folder; $statuses : Collection)->$this 
 	
 	If ($folder.exists)
 		For each ($file; $folder.files(fk recursive:K87:7 | fk ignore invisible:K87:22).query("extension in :1"; $extensions))
-			$statuses.push(This:C1470.codesign($file; This:C1470.CONST.WITHOUT_HARDENED_RUNTIME; This:C1470.CONST.FORCE))
+			$statuses.push(This:C1470.codesign($file; This:C1470.CONST.WITH_HARDENED_RUNTIME; This:C1470.CONST.FORCE))
 		End for each 
 	End if 
 	
@@ -574,7 +594,7 @@ Function _signNativeComponents($app : 4D:C1709.Folder; $statuses : Collection)->
 		$from:="@executable_path/../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework"
 		$to:="@executable_path/../../../../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework"
 		This:C1470.install_name_tool($file; $from; $to; $statuses)
-		$statuses.push(This:C1470.codesign($file; This:C1470.CONST.WITHOUT_HARDENED_RUNTIME; This:C1470.CONST.FORCE))
+		$statuses.push(This:C1470.codesign($file; This:C1470.CONST.WITH_HARDENED_RUNTIME; This:C1470.CONST.FORCE))
 	End if 
 	
 	$folder:=$app.folder("Contents").folder("Native Components").folder("WebViewerCEF.bundle").folder("Contents").folder("Frameworks").folder("4D Helper (Plugin).app")
@@ -601,15 +621,19 @@ Function _signNativeComponents($app : 4D:C1709.Folder; $statuses : Collection)->
 		$statuses.push(This:C1470.codesign($folder; This:C1470.CONST.WITH_HARDENED_RUNTIME; This:C1470.CONST.FORCE))
 	End if 
 	
-	//sign dylibs first
+	//sign dylibs
 	$folder:=$app.folder("Contents").folder("Native Components").folder("WebViewerCEF.bundle").folder("Contents").folder("Frameworks").folder("Chromium Embedded Framework.framework").folder("Libraries")
 	For each ($file; $folder.files(fk recursive:K87:7 | fk ignore invisible:K87:22))
-		$statuses.push(This:C1470.codesign($file; This:C1470.CONST.WITHOUT_HARDENED_RUNTIME; This:C1470.CONST.FORCE))
+		$statuses.push(This:C1470.codesign($file; This:C1470.CONST.WITH_HARDENED_RUNTIME; This:C1470.CONST.FORCE))
 	End for each 
 	
-	//sign Chromium Embedded Framework next
+	//sign executable
+	$file:=$app.folder("Contents").folder("Native Components").folder("WebViewerCEF.bundle").folder("Contents").folder("Frameworks").folder("Chromium Embedded Framework.framework").file("Chromium Embedded Framework")
+	$statuses.push(This:C1470.codesign($file; This:C1470.CONST.WITH_HARDENED_RUNTIME; This:C1470.CONST.FORCE))
+	
+	//sign these without hardened runtime; use NO_OPTIONS (don't use --deep) or 4D Helper will become invalid
 	$folder:=$app.folder("Contents").folder("Native Components").folder("WebViewerCEF.bundle").folder("Contents").folder("Frameworks").folder("Chromium Embedded Framework.framework")
-	$statuses.push(This:C1470.codesign($folder; This:C1470.CONST.WITHOUT_HARDENED_RUNTIME; This:C1470.CONST.FORCE))
+	$statuses.push(This:C1470.codesign($folder; This:C1470.CONST.WITHOUT_HARDENED_RUNTIME; This:C1470.CONST.NO_OPTIONS))
 	
 	//sign these without hardened runtime; use NO_OPTIONS (don't use --deep) or 4D Helper will become invalid
 	$folder:=$app.folder("Contents").folder("Native Components")
@@ -1248,8 +1272,8 @@ Function codesign($app : Object; $hardenedRuntime : Boolean; $options : Object)-
 			This:C1470._lowercaseExecutableName($infoPlistFile; $keys; $status)
 		End if 
 		
-		If ($infoPlistFile.exists) & ($bundleType="app")
-			This:C1470._updateProperties($infoPlistFile; $keys; $status)
+		If ($infoPlistFile.exists) & (($bundleType="app") | ($bundleType="bundle"))
+			This:C1470._updateProperties($infoPlistFile; $keys; $status; (This:C1470.app.path=$app.path))
 		End if 
 		
 	End if 
@@ -1290,20 +1314,38 @@ Function codesign($app : Object; $hardenedRuntime : Boolean; $options : Object)-
 			DOM SET XML ATTRIBUTE:C866($dom; "version"; "1.0")
 			$dict:=DOM Create XML element:C865($dom; "dict")
 			For each ($key; $entitlements)
+				
 				Case of 
-					: (Value type:C1509($entitlements[$key])=Is text:K8:3)
-						DOM SET XML ELEMENT VALUE:C868(DOM Create XML element:C865($dict; "key"); $key)
-						DOM SET XML ELEMENT VALUE:C868(DOM Create XML element:C865($dict; "string"); $keys[$key])
-					: (Value type:C1509($entitlements[$key])=Is boolean:K8:9)
-						DOM SET XML ELEMENT VALUE:C868(DOM Create XML element:C865($dict; "key"); $key)
-						If (Bool:C1537($entitlements[$key]))
-							$value:=DOM Create XML element:C865($dict; "true")
-						Else 
-							$value:=DOM Create XML element:C865($dict; "false")
-						End if 
+					: ($key="com.apple.security.inherit") & ($app.path=This:C1470.app.path)
+					: ($key="com.apple.security.application-groups") & ($app.path#This:C1470.app.path)
+						
 					Else 
-						//TODO: string, array, dict...
+						
+						Case of 
+							: (Value type:C1509($entitlements[$key])=Is text:K8:3)
+								DOM SET XML ELEMENT VALUE:C868(DOM Create XML element:C865($dict; "key"); $key)
+								DOM SET XML ELEMENT VALUE:C868(DOM Create XML element:C865($dict; "string"); $entitlements[$key])
+							: (Value type:C1509($entitlements[$key])=Is boolean:K8:9)
+								DOM SET XML ELEMENT VALUE:C868(DOM Create XML element:C865($dict; "key"); $key)
+								If (Bool:C1537($entitlements[$key]))
+									$value:=DOM Create XML element:C865($dict; "true")
+								Else 
+									$value:=DOM Create XML element:C865($dict; "false")
+								End if 
+							: (Value type:C1509($entitlements[$key])=Is collection:K8:32)
+								var $keyValues : Collection
+								DOM SET XML ELEMENT VALUE:C868(DOM Create XML element:C865($dict; "key"); $key)
+								$array:=DOM Create XML element:C865($dict; "array")
+								$keyValues:=$entitlements[$key]
+								For each ($keyValue; $keyValues)
+									DOM SET XML ELEMENT VALUE:C868(DOM Create XML element:C865($array; "string"); $keyValue)
+								End for each 
+							Else 
+								//TODO: string, array, dict...
+						End case 
+						
 				End case 
+				
 			End for each 
 			
 			ON ERR CALL:C155("ON_PARSE_ERROR")
@@ -1402,7 +1444,7 @@ Function _lowercaseExecutableName($infoPlistFile : 4D:C1709.File; $keys : Object
 		
 	End if 
 	
-Function _updateProperties($infoPlistFile : 4D:C1709.File; $keys : Object; $status : Object)->$this : cs:C1710.SignApp
+Function _updateProperties($infoPlistFile : 4D:C1709.File; $keys : Object; $status : Object; $isApp : Boolean)->$this : cs:C1710.SignApp
 	
 	var $stdIn; $stdOut; $stdErr : Blob
 	
@@ -1421,23 +1463,55 @@ Function _updateProperties($infoPlistFile : 4D:C1709.File; $keys : Object; $stat
 			C_TEXT:C284($dict)
 			$dict:=DOM Find XML element:C864($dom; "/plist/dict")
 			
+			C_TEXT:C284($originalIdentifier)
+			
 			ARRAY TEXT:C222($domKeys; 0)
 			$domKey:=DOM Find XML element:C864($dict; "key"; $domKeys)
 			//remove keys we want to write
 			For ($i; 1; Size of array:C274($domKeys))
 				$domKey:=$domKeys{$i}
 				DOM GET XML ELEMENT VALUE:C731($domKey; $keyName)
+				If ($keyName="CFBundleIdentifier")
+					DOM GET XML ELEMENT VALUE:C731(DOM Get next sibling XML element:C724($domKey); $originalIdentifier)
+				End if 
 				If ($keys[$keyName]#Null:C1517)
 					DOM REMOVE XML ELEMENT:C869(DOM Get next sibling XML element:C724($domKey))
 					DOM REMOVE XML ELEMENT:C869($domKey)
 				End if 
 			End for 
+			
+			C_TEXT:C284($applicationGroup)
+			ARRAY LONGINT:C221($pos; 0)
+			ARRAY LONGINT:C221($len; 0)
+			
+			If (Match regex:C1019("(?:[^(]+)\\(([A-Z0-9]+)\\)"; This:C1470.signingIdentity; 1; $pos; $len))
+				$applicationGroup:=Substring:C12(This:C1470.signingIdentity; $pos{1}; $len{1})
+			End if 
+			
+			If (Value type:C1509(This:C1470.entitlements["com.apple.security.application-groups"])=Is collection:K8:32)
+				If (This:C1470.entitlements["com.apple.security.application-groups"].length#0)
+					$applicationGroup:=This:C1470.entitlements["com.apple.security.application-groups"][0]
+				End if 
+			End if 
+			
 			//write keys
 			For each ($key; $keys)
 				Case of 
 					: (Value type:C1509($keys[$key])=Is text:K8:3)
+						If ($key="CFBundleIdentifier")
+							$stringValue:=$originalIdentifier
+							If (Not:C34($isApp))
+								If ($originalIdentifier#($applicationGroup+".@"))
+									$stringValue:=$applicationGroup+"."+$originalIdentifier
+								End if 
+							Else 
+								$stringValue:=$keys[$key]
+							End if 
+						Else 
+							$stringValue:=$keys[$key]
+						End if 
 						DOM SET XML ELEMENT VALUE:C868(DOM Create XML element:C865($dict; "key"); $key)
-						DOM SET XML ELEMENT VALUE:C868(DOM Create XML element:C865($dict; "string"); $keys[$key])
+						DOM SET XML ELEMENT VALUE:C868(DOM Create XML element:C865($dict; "string"); $stringValue)
 					: (Value type:C1509($keys[$key])=Is boolean:K8:9)
 						DOM SET XML ELEMENT VALUE:C868(DOM Create XML element:C865($dict; "key"); $key)
 						If (Bool:C1537($keys[$key]))
