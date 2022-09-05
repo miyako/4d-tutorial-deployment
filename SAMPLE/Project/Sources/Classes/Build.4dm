@@ -166,6 +166,10 @@ Function _signApp($buildApp : Object; $identifier : Text; $folderName : Text; $a
 	
 	$signApp:=SignApp($credentials; $plist)
 	
+	If (This:C1470.entitlements#Null:C1517)
+		$signApp.entitlements:=This:C1470.entitlements
+	End if 
+	
 	$status.sign:=$signApp.sign($app)
 	
 	$status.archive:=$signApp.archive($app; This:C1470.format)
