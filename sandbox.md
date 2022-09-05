@@ -34,7 +34,7 @@ https://developer.apple.com/documentation/security/app_sandbox
 
 CEFを削除して署名と公証をすればサンドボックス環境でクラッシュしないことが確認できた。
 
-[0.0.22](https://github.com/miyako/4d-tutorial-deployment/releases/tag/0.0.22)
+[0.0.26](https://github.com/miyako/4d-tutorial-deployment/releases/tag/0.0.26)
 
 ## アプリケーショングループを設定すれば良い?
 
