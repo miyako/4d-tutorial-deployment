@@ -539,6 +539,37 @@ End if
 * `updatePatch()`: パッチ番号をインクリメントします。このバージョンコードが`Info.plist`に書き込まれます。
 * `buildDesktop()`: ビルド/署名/アーカイブ/公証まで一連の処理を実行します。
 
+## 例題（サンドボックス）
+
+```4d
+$app:=cs.App.new()
+$appName:=$app.getName()
+
+$build:=cs.Build.new()
+$build.versionString:=cs.Version.new().updatePatch().getString()
+$build.certificateName:="Apple Distribution: keisuke miyako (Y69CWUC25B)"
+$build.desktopAppIdentifier:="org.fourd."+$appName
+$build.entitlements:=New object
+
+$build.entitlements["com.apple.security.app-sandbox"]:=False
+$build.entitlements["com.apple.security.application-groups"]:=New collection("Y69CWUC25B.org.fourd")
+$build.entitlements["com.apple.security.inherit"]:=True
+$build.entitlements["com.apple.security.network.client"]:=True
+$build.entitlements["com.apple.security.network.server"]:=True
+$build.entitlements["com.apple.security.files.user-selected.read-write"]:=True
+$build.entitlements["com.apple.security.files.user-selected.executable"]:=True
+
+$status:=$build.buildDesktop(".pkg")
+
+If ($status.build.success)
+	If ($status.archive.success)
+		If ($status.notarize.success)
+			SHOW ON DISK($status.app.platformPath)
+		End if 
+	End if 
+End if 
+```
+
 ## 資料/文献
 
 * [v17とv18の4Dアプリケーションのビルドを公証する](https://4d-jp.github.io/tech_notes/20-02-25-notarization/)
