@@ -570,6 +570,8 @@ If ($status.build.success)
 End if 
 ```
 
+[`cda6ad8`](https://github.com/miyako/4d-tutorial-deployment/commit/cda6ad86508f5201fd7d3d1764d382f0ef0b849a)
+
 ## 資料/文献
 
 * [v17とv18の4Dアプリケーションのビルドを公証する](https://4d-jp.github.io/tech_notes/20-02-25-notarization/)
