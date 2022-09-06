@@ -518,7 +518,9 @@ $status.notarize:=$signApp.notarize($status.archive.file)
 
 ## サンプルビルド
 
-`test_build_app`メソッドを実行して`.pkg`または`.dmg`形式の署名/公証アーカイブを作成しました。[`0.0.20`](https://github.com/miyako/4d-tutorial-deployment/releases/tag/0.0.20)
+`test_build_app`メソッドを実行して`.pkg`または`.dmg`形式の署名/公証アーカイブを作成しました。
+
+[`0.0.20`](https://github.com/miyako/4d-tutorial-deployment/releases/tag/0.0.20)
 
 ```4d
 $build:=cs.Build.new()
@@ -540,6 +542,10 @@ End if
 * `buildDesktop()`: ビルド/署名/アーカイブ/公証まで一連の処理を実行します。
 
 ## 例題（サンドボックス）
+
+[`0.0.26`](https://github.com/miyako/4d-tutorial-deployment/releases/tag/0.0.26)
+
+[`0.0.27`](https://github.com/miyako/4d-tutorial-deployment/releases/tag/0.0.27)
 
 ```4d
 $app:=cs.App.new()
