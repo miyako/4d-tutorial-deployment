@@ -76,3 +76,12 @@ Operation not permitted
 `{appName}`（クライアントであれば`{appName} Client`）以外はアクセスできない。
 
 `LAUNCH EXTERNAL PROCESS`経由で`diskutil`などのコマンドが実行できない。
+
+クライアントは*Caches* にライブラリをダウンロードするのでブロックされる。
+
+```
+~/Library/Caches/{appName} Client/{appPublishName}_100_64_1_98_19813_488/Libraries/lib4d-arm64.dylib' not valid for use in process: library load disallowed by system policy)
+```
+xtoolbox
+
+```
