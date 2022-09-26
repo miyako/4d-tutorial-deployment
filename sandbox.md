@@ -82,6 +82,10 @@ Operation not permitted
 ```
 ~/Library/Caches/{appName} Client/{appPublishName}_100_64_1_98_19813_488/Libraries/lib4d-arm64.dylib' not valid for use in process: library load disallowed by system policy)
 ```
-xtoolbox
 
-```
+## 結論
+
+* クライアント/サーバーのサンドボックスは極めて困難。
+
+* デスクトップはサンドボックスできる。
+
