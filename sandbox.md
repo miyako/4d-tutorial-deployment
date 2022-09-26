@@ -63,3 +63,17 @@ CEFを削除して署名と公証をすればサンドボックス環境でク�
 **解説**: 本体とヘルパーはプロセス間通信をするので，これがセキュリティホールとならないように対策を講じる必要がある。
 
 [0.0.27](https://github.com/miyako/4d-tutorial-deployment/releases/tag/0.0.27)
+
+#### 自動アップグレードサーバー特有の問題
+
+```
+ファイル "info.json" を開くことができません: 
+
+`* Server.app:Contents:Upgrade4DClient:info.json)`
+xtoolbox
+task -4, name: 'クライアントマネージャー'
+Error code: 1 (POSX)
+Operation not permitted
+component: 'POSX'
+task -4, name: 'クライアントマネージャー'
+```
