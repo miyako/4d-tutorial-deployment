@@ -1,6 +1,6 @@
-Class constructor
+Class constructor($name : Text)
 	
-	This:C1470.applicationName:=cs:C1710.App.new().getName()
+	This:C1470.applicationName:=$name
 	
 	This:C1470.RuntimeVLIconMacPath:=Get 4D folder:C485(Current resources folder:K5:16)+"SAMPLE.icns"
 	This:C1470.ServerIconMacPath:=Get 4D folder:C485(Current resources folder:K5:16)+"SAMPLE.icns"
@@ -190,22 +190,11 @@ Function _signApp($buildApp : Object; $identifier : Text; $folderName : Text; $a
 		
 	End if 
 	
-Function buildAutoUpdateClientServer($format : Text)->$status : Object
+Function buildAutoUpdateClientServer()->$status : Object
 	
-	If (Count parameters:C259#0)
-		
-		Case of 
-			: ($format=".dmg")
-				This:C1470.format:=$format
-			: ($format=".pkg")
-				This:C1470.format:=$format
-			: ($format=".zip")
-				This:C1470.format:=$format
-		End case 
-		
-	End if 
+	This:C1470.format:=".dmg"
 	
-	This:C1470._prepareClientRuntime()
+	$alteredVolumeDesktop:=This:C1470._prepareClientRuntime()
 	
 	$version:=This:C1470.version
 	This:C1470.folderName:=This:C1470.folderName
@@ -222,14 +211,14 @@ Function buildAutoUpdateClientServer($format : Text)->$status : Object
 	$buildApp.settings.SourcesFiles.CS.ServerIncludeIt:=True:C214
 	$buildApp.settings.SourcesFiles.CS.ClientMacIncludeIt:=True:C214
 	$buildApp.settings.SourcesFiles.CS.ServerMacFolder:=This:C1470.applicationsFolder.folder(This:C1470.folderName).folder("4D Server.app").platformPath
-	$buildApp.settings.SourcesFiles.CS.ClientMacFolderToMac:=This:C1470.applicationsFolder.folder(This:C1470.folderName).folder("4D Volume Desktop.app").platformPath
+	$buildApp.settings.SourcesFiles.CS.ClientMacFolderToMac:=$alteredVolumeDesktop.platformPath
 	$buildApp.settings.SourcesFiles.CS.ServerIconMacPath:=This:C1470.ServerIconMacPath
 	$buildApp.settings.SourcesFiles.CS.ClientMacIconForMacPath:=This:C1470.ClientMacIconForMacPath
 	$buildApp.settings.SourcesFiles.CS.IsOEM:=$isOEM
 	$buildApp.settings.CS.BuildServerApplication:=True:C214
 	$buildApp.settings.CS.BuildCSUpgradeable:=True:C214
-	$buildApp.settings.CS.CurrentVers:=2
-	$buildApp.settings.CS.RangeVersMin:=2
+	$buildApp.settings.CS.CurrentVers:=1
+	$buildApp.settings.CS.RangeVersMin:=1
 	$buildApp.settings.CS.RangeVersMax:=9
 	$buildApp.settings.CS.LastDataPathLookup:="ByAppName"
 	$buildApp.settings.SignApplication.MacSignature:=True:C214
@@ -257,23 +246,12 @@ Function buildAutoUpdateClientServer($format : Text)->$status : Object
 		$status.build:=New object:C1471("success"; True:C214)
 		
 	Else 
-		$status.build:=$status
+		$status.build:=New object:C1471("success"; False:C215)
 	End if 
 	
-Function buildServer($format : Text)->$status : Object
+Function buildServer()->$status : Object
 	
-	If (Count parameters:C259#0)
-		
-		Case of 
-			: ($format=".dmg")
-				This:C1470.format:=$format
-			: ($format=".pkg")
-				This:C1470.format:=$format
-			: ($format=".zip")
-				This:C1470.format:=$format
-		End case 
-		
-	End if 
+	This:C1470.format:=".dmg"
 	
 	$version:=This:C1470.version
 	This:C1470.folderName:=This:C1470.folderName
@@ -313,12 +291,6 @@ Function buildServer($format : Text)->$status : Object
 		End if 
 		DOM CLOSE XML:C722($dom)
 		
-		$app:=$buildApp.getPlatformDestinationFolder().folder("Client Server executable").folder($buildApp.settings.BuildApplicationName+" Server"+".app")
-		
-		$clientFolder:=$app.folder("Contents").folder("Upgrade4DClient")
-		$clientFolder.create()
-		$dmg.moveTo($clientFolder)
-		
 		$status:=This:C1470._signApp($buildApp; This:C1470.serverAppIdentifier; "Client Server executable"; $buildApp.settings.BuildApplicationName+" Server"; False:C215)
 		
 		$status.build:=New object:C1471("success"; True:C214)
@@ -327,7 +299,7 @@ Function buildServer($format : Text)->$status : Object
 		$status.build:=New object:C1471("success"; False:C215)
 	End if 
 	
-Function _prepareClientRuntime()->$status : Object
+Function _prepareClientRuntime()->$alteredVolumeDesktop : 4D:C1709.Folder
 	
 /*
 	
@@ -336,14 +308,15 @@ Function _prepareClientRuntime()->$status : Object
 	
 */
 	
-	$version:=This:C1470.version
 	This:C1470.folderName:=This:C1470.folderName
 	
-	This:C1470.versionString:=cs:C1710.Version.new().getString()
-	
-	$buildApp:=BuildApp(New object:C1471)
-	
 	$app:=This:C1470.applicationsFolder.folder(This:C1470.folderName).folder("4D Volume Desktop.app")
+	
+	$folder:=Folder:C1567(Temporary folder:C486; fk platform path:K87:2).folder(Generate UUID:C1066)
+	
+	$folder.create()
+	
+	$alteredVolumeDesktop:=$app.copyTo($folder)
 	
 	$identifier:=This:C1470.clientAppIdentifier
 	
@@ -351,24 +324,15 @@ Function _prepareClientRuntime()->$status : Object
 	
 	$credentials:=This:C1470._getCredentials()
 	
+	$status:=New object:C1471("app"; $alteredVolumeDesktop)
+	
 	$signApp:=SignApp($credentials; $plist)
 	
-	$status:=$signApp.sign($app)
+	$status.sign:=$signApp.sign($alteredVolumeDesktop)
 	
-Function buildClient($format : Text)->$status : Object
+Function buildClient()->$status : Object
 	
-	If (Count parameters:C259#0)
-		
-		Case of 
-			: ($format=".dmg")
-				This:C1470.format:=$format
-			: ($format=".pkg")
-				This:C1470.format:=$format
-			: ($format=".zip")
-				This:C1470.format:=$format
-		End case 
-		
-	End if 
+	This:C1470.format:=".dmg"
 	
 	$version:=This:C1470.version
 	This:C1470.folderName:=This:C1470.folderName
@@ -388,6 +352,7 @@ Function buildClient($format : Text)->$status : Object
 	$buildApp.settings.SourcesFiles.CS.ClientMacIconForMacPath:=This:C1470.ClientMacIconForMacPath
 	$buildApp.settings.SourcesFiles.CS.IsOEM:=$isOEM
 	$buildApp.settings.CS.BuildServerApplication:=False:C215
+	$buildApp.settings.CS.CurrentVers:=1
 	$buildApp.settings.CS.LastDataPathLookup:="ByAppName"
 	$buildApp.settings.SignApplication.MacSignature:=False:C215
 	$buildApp.settings.SignApplication.AdHocSign:=False:C215
