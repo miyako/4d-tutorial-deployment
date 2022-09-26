@@ -174,6 +174,10 @@ Function _signApp($buildApp : Object; $identifier : Text; $folderName : Text; $a
 		$signApp.options.removeCEF:=This:C1470.removeCEF
 	End if 
 	
+	If (This:C1470.removePHP#Null:C1517)
+		$signApp.options.removePHP:=This:C1470.removePHP
+	End if 
+	
 	$status.sign:=$signApp.sign($app)
 	
 	$status.archive:=$signApp.archive($app; This:C1470.format)
