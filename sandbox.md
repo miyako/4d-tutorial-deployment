@@ -32,39 +32,21 @@ https://developer.apple.com/documentation/security/app_sandbox
 
 ## CEFを削除すれば良い?
 
-CEFを削除して署名と公証をすればサンドボックス環境でクラッシュしないことが確認できた。
+CEFを削除して署名と公証をすればサンドボックス環境でクラッシュしない。
 
-[0.0.26](https://github.com/miyako/4d-tutorial-deployment/releases/tag/0.0.26)
-
-<img width="822" alt="スクリーンショット 2022-09-26 16 01 47" src="https://user-images.githubusercontent.com/1725068/192213358-8cc0e842-82d0-482c-b338-5d994a6c01dc.png">
-
-**注記**: CEFに対するシンボリックリンクも削除する必要がある。
+ただし，*WebViewerCEF.bundle* だけでなく，シンボリックリンクも削除する必要がある。
 
 ## セキュリティグループを設定すれば良い?
 
 メインアプリケーションとCEFのヘルパーアプリケーションは同一のセキュリティグループに属する必要がある。
 
-#### app
+* `com.apple.security.application-groups`をメインアプリケーションの`CFBundleIdentifier`に合わせる
 
-* `CFBundleIdentifier`: org.fourd.SAMPLE
-* `com.apple.security.app-sandbox`: true
-* `com.apple.security.application-groups`: Y69CWUC25B.org.fourd
+* 4D Helper, 4D Helper (GPU), 4D Helper (Plugin), 4D Helper (Renderer)の`CFBundleIdentifier`の接頭辞にメインアプリケーションの`CFBundleIdentifier`を追加する
 
-#### 4D Helper, 4D Helper (GPU), 4D Helper (Plugin), 4D Helper (Renderer)
-
-* `CFBundleIdentifier`: Y69CWUC25B.org.fourd.com.4d.cefProcessHandler
-* `com.apple.security.app-sandbox`: true
-* `com.apple.security.inherit`: true
-
-~~セキュリティグループを設定すればサンドボックス環境でクラッシュしないことが確認できた~~。
-
-**訂正**: サンドボックスではなかった
-
-<img width="822" alt="スクリーンショット 2022-09-26 16 00 58" src="https://user-images.githubusercontent.com/1725068/192213403-506ce62a-4e68-40e2-b865-3ec2e48a7132.png">
+* 各ヘルパーの*entitlements* は`com.apple.security.app-sandbox`と`com.apple.security.inherit`だけにする
 
 **解説**: 本体とヘルパーはプロセス間通信をするので，これがセキュリティホールとならないように対策を講じる必要がある。
-
-[0.0.27](https://github.com/miyako/4d-tutorial-deployment/releases/tag/0.0.27)
 
 #### 自動アップグレードサーバー特有の問題
 
