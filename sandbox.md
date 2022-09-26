@@ -64,3 +64,13 @@ Operation not permitted
 ```
 
 当該ファイルを署名しても問題はエラーは解消されない。
+
+## その他
+
+`Application Support`は*Containers* 経由でアクセスするため
+
+```
+Containers/{appName}/Data/Library/Application Support/{appName}
+```
+
+`{appName}`（クライアントであれば`{appName} Client`）以外はアクセスできない。
