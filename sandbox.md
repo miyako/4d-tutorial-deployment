@@ -74,3 +74,5 @@ Operation not permitted
 ```
 
 `{appName}`（クライアントであれば`{appName} Client`）以外はアクセスできない。
+
+`LAUNCH EXTERNAL PROCESS`経由で`diskutil`などのコマンドが実行できない。
