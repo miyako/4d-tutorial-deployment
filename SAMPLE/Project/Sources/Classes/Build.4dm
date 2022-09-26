@@ -210,7 +210,7 @@ Function buildAutoUpdateClientServer($format : Text)->$status : Object
 	$version:=This:C1470.version
 	This:C1470.folderName:=This:C1470.folderName
 	
-	This:C1470.versionString:=cs:C1710.Version.new().updatePatch().getString()
+	This:C1470.versionString:=cs:C1710.Version.new().getString()
 	
 	$buildApp:=BuildApp(New object:C1471)
 	
@@ -354,4 +354,53 @@ Function _prepareClientRuntime()->$status : Object
 	$signApp:=SignApp($credentials; $plist)
 	
 	$status:=$signApp.sign($app)
+	
+Function buildClient($format : Text)->$status : Object
+	
+	If (Count parameters:C259#0)
+		
+		Case of 
+			: ($format=".dmg")
+				This:C1470.format:=$format
+			: ($format=".pkg")
+				This:C1470.format:=$format
+			: ($format=".zip")
+				This:C1470.format:=$format
+		End case 
+		
+	End if 
+	
+	$version:=This:C1470.version
+	This:C1470.folderName:=This:C1470.folderName
+	
+	This:C1470.versionString:=cs:C1710.Version.new().getString()
+	
+	$buildApp:=BuildApp(New object:C1471)
+	
+	$buildApp.findLicenses(New collection:C1472("4DOE"; "4UOS"; "4DOM"; "4DDP"))
+	$isOEM:=($buildApp.settings.Licenses.ArrayLicenseMac.Item.indexOf("@:4DOE@")#-1)
+	
+	$buildApp.settings.BuildApplicationName:=This:C1470.applicationName
+	$buildApp.settings.BuildMacDestFolder:=This:C1470.releaseFolder.folder(This:C1470.versionString).platformPath
+	$buildApp.settings.SourcesFiles.CS.ServerIncludeIt:=False:C215
+	$buildApp.settings.SourcesFiles.CS.ClientMacIncludeIt:=True:C214
+	$buildApp.settings.SourcesFiles.CS.ClientMacFolderToMac:=This:C1470.applicationsFolder.folder(This:C1470.folderName).folder("4D Volume Desktop.app").platformPath
+	$buildApp.settings.SourcesFiles.CS.ClientMacIconForMacPath:=This:C1470.ClientMacIconForMacPath
+	$buildApp.settings.SourcesFiles.CS.IsOEM:=$isOEM
+	$buildApp.settings.CS.BuildServerApplication:=False:C215
+	$buildApp.settings.CS.LastDataPathLookup:="ByAppName"
+	$buildApp.settings.SignApplication.MacSignature:=False:C215
+	$buildApp.settings.SignApplication.AdHocSign:=False:C215
+	
+	$status:=$buildApp.build()
+	
+	If ($status.success)
+		
+		$status:=This:C1470._signApp($buildApp; This:C1470.clientAppIdentifier; "Client Server executable"; $buildApp.settings.BuildApplicationName+" Client"; False:C215)
+		
+		$status.build:=New object:C1471("success"; True:C214)
+		
+	Else 
+		$status.build:=New object:C1471("success"; False:C215)
+	End if 
 	
