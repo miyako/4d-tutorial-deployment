@@ -63,4 +63,4 @@ Error code: 1 (POSX)
 Operation not permitted
 ```
 
-当該ファイルを署名してもダメ。
+当該ファイルを署名しても問題はエラーは解消されない。
