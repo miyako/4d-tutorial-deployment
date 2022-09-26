@@ -63,4 +63,16 @@ Error code: 1 (POSX)
 Operation not permitted
 ```
 
-当該ファイルを署名してもダメ。
+当該ファイルを署名しても問題はエラーは解消されない。
+
+## その他
+
+`Application Support`は*Containers* 経由でアクセスするため
+
+```
+/Library/Containers/{appName}/Data/Library/Application Support/{appName}
+```
+
+`{appName}`（クライアントであれば`{appName} Client`）以外はアクセスできない。
+
+`LAUNCH EXTERNAL PROCESS`経由で`diskutil`などのコマンドが実行できない。
