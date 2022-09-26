@@ -69,11 +69,10 @@ CEFを削除して署名と公証をすればサンドボックス環境でク�
 ```
 ファイル "info.json" を開くことができません: 
 
-`* Server.app:Contents:Upgrade4DClient:info.json)`
+* Server.app:Contents:Upgrade4DClient:info.json)
+
 xtoolbox
 task -4, name: 'クライアントマネージャー'
 Error code: 1 (POSX)
 Operation not permitted
-component: 'POSX'
-task -4, name: 'クライアントマネージャー'
 ```
