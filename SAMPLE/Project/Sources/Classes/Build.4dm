@@ -239,6 +239,15 @@ Function buildAutoUpdateClientServer()->$status : Object
 		End if 
 		DOM CLOSE XML:C722($dom)
 		
+		$app:=$buildApp.getPlatformDestinationFolder().folder("Client Server executable").folder($buildApp.settings.BuildApplicationName+" Server.app")
+		$file:=$app.folder("Contents").folder("Upgrade4DClient").file("info.json")
+		
+		If ($file.exists)
+			$command:="chmod 666 "+This:C1470._escape_param($file.path)
+			var $stdIn; $stdOut; $stdErr : Blob
+			LAUNCH EXTERNAL PROCESS:C811($command; $stdIn; $stdOut; $stdErr)
+		End if 
+		
 		//あらためて署名する
 		$status:=This:C1470._signApp($buildApp; This:C1470.serverAppIdentifier; "Client Server executable"; $buildApp.settings.BuildApplicationName+" Server"; False:C215)
 		$status:=This:C1470._signApp($buildApp; This:C1470.clientAppIdentifier; "Client Server executable"; $buildApp.settings.BuildApplicationName+" Client"; False:C215)
