@@ -532,6 +532,13 @@ Function _removeCEF($app : 4D:C1709.Folder; $statuses : Collection)->$this : cs:
 	$file:=$app.folder("Contents").file("Chromium Embedded Framework.framework")
 	$file.delete()
 	
+/*
+(invalid destination for symbolic link in bundle)
+*/
+	
+	$file:=$app.folder("Contents").folder("Frameworks").file("Chromium Embedded Framework.framework")
+	$file.delete()
+	
 Function _removePHP($app : 4D:C1709.Folder; $statuses : Collection)->$this : cs:C1710.SignApp
 	
 	$this:=This:C1470
