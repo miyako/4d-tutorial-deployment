@@ -3,7 +3,7 @@ $app:=cs:C1710.App.new()
 
 $appName:=$app.getName()
 
-$build:=cs:C1710.Build.new()
+$build:=cs:C1710.Build.new($appName)
 
 $build.versionString:=cs:C1710.Version.new().updatePatch().getString()
 
