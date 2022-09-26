@@ -70,7 +70,7 @@ Operation not permitted
 `Application Support`は*Containers* 経由でアクセスするため
 
 ```
-Containers/{appName}/Data/Library/Application Support/{appName}
+`/Library/Containers/{appName}/Data/Library/Application Support/{appName}
 ```
 
 `{appName}`（クライアントであれば`{appName} Client`）以外はアクセスできない。
