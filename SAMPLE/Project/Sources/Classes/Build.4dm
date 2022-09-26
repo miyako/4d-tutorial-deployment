@@ -79,7 +79,7 @@ Function buildDesktop($format : Text)->$status : Object
 		$status.build:=New object:C1471("success"; True:C214)
 		
 	Else 
-		$status.build:=$status
+		$status.build:=New object:C1471("success"; False:C215)
 	End if 
 	
 Function _escape_param($escape_param : Text)->$param : Text
@@ -324,7 +324,7 @@ Function buildServer($format : Text)->$status : Object
 		$status.build:=New object:C1471("success"; True:C214)
 		
 	Else 
-		$status.build:=$status
+		$status.build:=New object:C1471("success"; False:C215)
 	End if 
 	
 Function _prepareClientRuntime()->$status : Object
