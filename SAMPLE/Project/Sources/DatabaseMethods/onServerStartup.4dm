@@ -1,1 +1,1 @@
-cs:C1710.Startup.new().switchDataIfNecessary()  //データファイル切り替え 
+IDLE:C311
