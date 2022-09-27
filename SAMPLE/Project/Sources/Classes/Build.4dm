@@ -252,9 +252,8 @@ Function buildAutoUpdateClientServer()->$status : Object
 			LAUNCH EXTERNAL PROCESS:C811($command; $stdIn; $stdOut; $stdErr)
 		End if 
 		
-		//あらためて署名する
-		$status:=This:C1470._signApp($buildApp; This:C1470.serverAppIdentifier; "Client Server executable"; $buildApp.settings.BuildApplicationName+" Server"; False:C215)
-		$status:=This:C1470._signApp($buildApp; This:C1470.clientAppIdentifier; "Client Server executable"; $buildApp.settings.BuildApplicationName+" Client"; False:C215)
+		$status.server:=This:C1470._signApp($buildApp; This:C1470.serverAppIdentifier; "Client Server executable"; $buildApp.settings.BuildApplicationName+" Server"; False:C215)
+		$status.client:=This:C1470._signApp($buildApp; This:C1470.clientAppIdentifier; "Client Server executable"; $buildApp.settings.BuildApplicationName+" Client"; False:C215)
 		
 		$status.build:=New object:C1471("success"; True:C214)
 		
